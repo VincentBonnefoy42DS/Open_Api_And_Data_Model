@@ -1,0 +1,2119 @@
+openapi: 3.0.1
+info:
+    title: API CustomerBill
+    description: "## TMF API Reference: TMF 678 - Customer bill Management\n\n### Release:\
+    \ 19.5 - December 2019\n\nThe Customer Bill Management API allows to find and\
+    \ retrieve one or several customer bills (also called invoices) produced for a\
+    \ customer. A customer bill is an electronic or paper document produced at the\
+    \ end of the billing process. The customer bill gathers and displays different\
+    \ items (applied customer billing rates generated during the rating and billing\
+    \ processes) to be charged to a customer. It represents a total amount due for\
+    \ all the products during the billing period and all significant information like\
+    \ dates, bill reference...\nThis API provides also operations to find and retrieve\
+    \ the details of applied customer billing rates presented on a customer bill.\
+    \ \nFinally, this API allows to request in real-time a customer bill creation\
+    \ and to manage this request.\n\n### Resources \n- customerBill\n- appliedCustomerBillingRate\n\
+    - customerBillOnDemand\n- billingCycle\n\n### Operations\nCustomer Bill Management\
+    \ API performs the following operations :\n- Retrieve a customer bill or a collection\
+    \ of customer bills depending on filter criteria.\n- Partial update of  a customer\
+    \ bill (for administration purposes).\n-  Retrieve an applied customer billing\
+    \ rate or a collection of applied customer billing rates depending on filter criteria.\n\
+    -  Create a customer bill on demand request, retrieve one or a collection of \
+    \ customer bill on demand request(s) depending on filter criteria.\n\n- Manage\
+    \ notification of events on customer bill and customer bill on demand.\n\nCopyright\
+    \ © TM Forum 2018. All Rights Reserved."
+    version: "4.0"
+servers:
+    -   url: https://serverRoot/tmf-api/customerBillManagement/v4/
+tags:
+    -   name: customerBillOnDemand
+    -   name: customerBill
+    -   name: appliedCustomerBillingRate
+    -   name: billCycle
+    -   name: billCycleSpecification
+    -   name: events subscription
+paths:
+    /customerBillOnDemand:
+        get:
+            tags:
+                - customerBillOnDemand
+            summary: List or find CustomerBillOnDemand objects
+            description: This operation list or find CustomerBillOnDemand entities
+            operationId: listCustomerBillOnDemand
+            parameters:
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to be provided in response
+                    schema:
+                        type: string
+                -   name: offset
+                    in: query
+                    description: Requested index for start of resources to be provided in response
+                    schema:
+                        type: integer
+                -   name: limit
+                    in: query
+                    description: Requested number of resources to be provided in response
+                    schema:
+                        type: integer
+            responses:
+                "200":
+                    description: Success
+                    headers:
+                        X-Total-Count:
+                            description: Total number of items matching criteria
+                            schema:
+                                type: integer
+                        X-Result-Count:
+                            description: Actual number of items returned in the response body
+                            schema:
+                                type: integer
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/CustomerBillOnDemand'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        post:
+            tags:
+                - customerBillOnDemand
+            summary: Creates a CustomerBillOnDemand
+            description: This operation creates a CustomerBillOnDemand entity.
+            operationId: createCustomerBillOnDemand
+            requestBody:
+                description: The CustomerBillOnDemand to be created
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/CustomerBillOnDemand_Create'
+                required: true
+            responses:
+                "201":
+                    description: Created
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/CustomerBillOnDemand'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: customerBillOnDemand
+    /customerBillOnDemand/{id}:
+        get:
+            tags:
+                - customerBillOnDemand
+            summary: Retrieves a CustomerBillOnDemand by ID
+            description: This operation retrieves a CustomerBillOnDemand entity. Attribute
+                selection is enabled for all first level attributes.
+            operationId: retrieveCustomerBillOnDemand
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the CustomerBillOnDemand
+                    required: true
+                    schema:
+                        type: string
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to provide in response
+                    schema:
+                        type: string
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/CustomerBillOnDemand'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /customerBill:
+        get:
+            tags:
+                - customerBill
+            summary: List or find CustomerBill objects
+            description: This operation list or find CustomerBill entities
+            operationId: listCustomerBill
+            parameters:
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to be provided in response
+                    schema:
+                        type: string
+                -   name: offset
+                    in: query
+                    description: Requested index for start of resources to be provided in response
+                    schema:
+                        type: integer
+                -   name: limit
+                    in: query
+                    description: Requested number of resources to be provided in response
+                    schema:
+                        type: integer
+            responses:
+                "200":
+                    description: Success
+                    headers:
+                        X-Total-Count:
+                            description: Total number of items matching criteria
+                            schema:
+                                type: integer
+                        X-Result-Count:
+                            description: Actual number of items returned in the response body
+                            schema:
+                                type: integer
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/CustomerBill'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /customerBill/{id}:
+        get:
+            tags:
+                - customerBill
+            summary: Retrieves a CustomerBill by ID
+            description: This operation retrieves a CustomerBill entity. Attribute selection
+                is enabled for all first level attributes.
+            operationId: retrieveCustomerBill
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the CustomerBill
+                    required: true
+                    schema:
+                        type: string
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to provide in response
+                    schema:
+                        type: string
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/CustomerBill'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        patch:
+            tags:
+                - customerBill
+            summary: Updates partially a CustomerBill
+            description: This operation updates partially a CustomerBill entity.
+            operationId: patchCustomerBill
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the CustomerBill
+                    required: true
+                    schema:
+                        type: string
+            requestBody:
+                description: The CustomerBill to be updated
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/CustomerBill_Update'
+                required: true
+            responses:
+                "200":
+                    description: Updated
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/CustomerBill'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: customerBill
+    /appliedCustomerBillingRate:
+        get:
+            tags:
+                - appliedCustomerBillingRate
+            summary: List or find AppliedCustomerBillingRate objects
+            description: This operation list or find AppliedCustomerBillingRate entities
+            operationId: listAppliedCustomerBillingRate
+            parameters:
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to be provided in response
+                    schema:
+                        type: string
+                -   name: offset
+                    in: query
+                    description: Requested index for start of resources to be provided in response
+                    schema:
+                        type: integer
+                -   name: limit
+                    in: query
+                    description: Requested number of resources to be provided in response
+                    schema:
+                        type: integer
+            responses:
+                "200":
+                    description: Success
+                    headers:
+                        X-Total-Count:
+                            description: Total number of items matching criteria
+                            schema:
+                                type: integer
+                        X-Result-Count:
+                            description: Actual number of items returned in the response body
+                            schema:
+                                type: integer
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/AppliedCustomerBillingRate'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /appliedCustomerBillingRate/{id}:
+        get:
+            tags:
+                - appliedCustomerBillingRate
+            summary: Retrieves a AppliedCustomerBillingRate by ID
+            description: This operation retrieves a AppliedCustomerBillingRate entity. Attribute
+                selection is enabled for all first level attributes.
+            operationId: retrieveAppliedCustomerBillingRate
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the AppliedCustomerBillingRate
+                    required: true
+                    schema:
+                        type: string
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to provide in response
+                    schema:
+                        type: string
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/AppliedCustomerBillingRate'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /billCycle:
+        get:
+            tags:
+                - billCycle
+            summary: List or find BillCycle objects
+            description: This operation list or find BillCycle entities
+            operationId: listBillCycle
+            parameters:
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to be provided in response
+                    schema:
+                        type: string
+                -   name: offset
+                    in: query
+                    description: Requested index for start of resources to be provided in response
+                    schema:
+                        type: integer
+                -   name: limit
+                    in: query
+                    description: Requested number of resources to be provided in response
+                    schema:
+                        type: integer
+            responses:
+                "200":
+                    description: Success
+                    headers:
+                        X-Total-Count:
+                            description: Total number of items matching criteria
+                            schema:
+                                type: integer
+                        X-Result-Count:
+                            description: Actual number of items returned in the response body
+                            schema:
+                                type: integer
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/BillCycle'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /billCycle/{id}:
+        get:
+            tags:
+                - billCycle
+            summary: Retrieves a BillCycle by ID
+            description: This operation retrieves a BillCycle entity. Attribute selection
+                is enabled for all first level attributes.
+            operationId: retrieveBillCycle
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the BillCycle
+                    required: true
+                    schema:
+                        type: string
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to provide in response
+                    schema:
+                        type: string
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/BillCycle'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /billCycleSpecification:
+        get:
+            tags:
+                - billCycleSpecification
+            summary: List or find BillCycleSpecification objects
+            description: This operation list or find BillCycleSpecification entities
+            operationId: listBillCycleSpecification
+            parameters:
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to be provided in response
+                    schema:
+                        type: string
+                -   name: offset
+                    in: query
+                    description: Requested index for start of resources to be provided in response
+                    schema:
+                        type: integer
+                -   name: limit
+                    in: query
+                    description: Requested number of resources to be provided in response
+                    schema:
+                        type: integer
+            responses:
+                "200":
+                    description: Success
+                    headers:
+                        X-Total-Count:
+                            description: Total number of items matching criteria
+                            schema:
+                                type: integer
+                        X-Result-Count:
+                            description: Actual number of items returned in the response body
+                            schema:
+                                type: integer
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/BillCycleSpecification'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /billCycleSpecification/{id}:
+        get:
+            tags:
+                - billCycleSpecification
+            summary: Retrieves a BillCycleSpecification by ID
+            description: This operation retrieves a BillCycleSpecification entity. Attribute
+                selection is enabled for all first level attributes.
+            operationId: retrieveBillCycleSpecification
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the BillCycleSpecification
+                    required: true
+                    schema:
+                        type: string
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to provide in response
+                    schema:
+                        type: string
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/BillCycleSpecification'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /hub:
+        post:
+            tags:
+                - events subscription
+            summary: Register a listener
+            description: "Sets the communication endpoint address the service instance must\
+        \ use to deliver information about its health state, execution state, failures\
+        \ and metrics."
+            operationId: registerListener
+            requestBody:
+                description: Data containing the callback endpoint to deliver the information
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/EventSubscriptionInput'
+                required: true
+            responses:
+                "201":
+                    description: Subscribed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /hub/{id}:
+        delete:
+            tags:
+                - events subscription
+            summary: Unregister a listener
+            description: "Resets the communication endpoint address the service instance\
+        \ must use to deliver information about its health state, execution state,\
+        \ failures and metrics."
+            operationId: unregisterListener
+            parameters:
+                -   name: id
+                    in: path
+                    description: The id of the registered listener
+                    required: true
+                    schema:
+                        type: string
+            responses:
+                "204":
+                    description: Deleted
+                    content: { }
+                "400":
+                    description: Bad request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+components:
+    schemas:
+        Any:
+            type: object
+        AppliedBillingTaxRate:
+            type: object
+            properties:
+                taxCategory:
+                    type: string
+                    description: A categorization of the tax rate
+                taxRate:
+                    type: number
+                    description: Applied rate
+                    format: float
+                taxAmount:
+                    $ref: '#/components/schemas/Money'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: The applied billing tax rate represents taxes applied billing rate
+                it refers to. It is calculated during the billing process.
+        AppliedCustomerBillingRate:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the customer applied billing rate
+                href:
+                    type: string
+                    description: "Explanation: Reference of the customer applied billing rate."
+                appliedBillingRateType:
+                    type: string
+                    description: "Type of the applied billing rate : appliedBillingCharge (any\
+            \ kind of charge except taxation charges : recurringCharge, oneTimeCharge,\
+            \ usageCharge),  appliedBillingCredit (any kind of credit : rebate or\
+            \ productAlteration) or appliedPenaltyCharge (penalty charges such as\
+            \ late fees, payment rejection fees,...)"
+                date:
+                    type: string
+                    description: Creation date of the applied billing rate
+                    format: date-time
+                description:
+                    type: string
+                    description: Additional data to be displayed on the bill for this customer
+                        applied billing rate
+                isBilled:
+                    type: boolean
+                    description: "If isBilled = true then bill should be provided, if false\
+            \ then billingAccount should be provided"
+                name:
+                    type: string
+                    description: Name of the customer applied billing rate
+                appliedTax:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/AppliedBillingTaxRate'
+                bill:
+                    $ref: '#/components/schemas/CustomerBillRef'
+                billingAccount:
+                    $ref: '#/components/schemas/BillingAccountRef'
+                characteristic:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Characteristic'
+                periodCoverage:
+                    $ref: '#/components/schemas/TimePeriod'
+                product:
+                    $ref: '#/components/schemas/ProductRef'
+                taxExcludedAmount:
+                    $ref: '#/components/schemas/Money'
+                taxIncludedAmount:
+                    $ref: '#/components/schemas/Money'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: A customer bill displays applied billing rates created before or
+                during the billing process.
+        AppliedPayment:
+            type: object
+            properties:
+                appliedAmount:
+                    $ref: '#/components/schemas/Money'
+                payment:
+                    $ref: '#/components/schemas/PaymentRef'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: The applied payment is the result of lettering process. It enables
+                to assign automatically or manually part of incoming payment amount to a bill.
+        Attachment:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier for this particular attachment
+                href:
+                    type: string
+                    description: URI for this Attachment
+                attachmentType:
+                    type: string
+                    description: "Attachment type such as video, picture"
+                content:
+                    type: string
+                    description: "The actual contents of the attachment object, if embedded,\
+            \ encoded as base64"
+                description:
+                    type: string
+                    description: A narrative text describing the content of the attachment
+                mimeType:
+                    type: string
+                    description: "Attachment mime type such as extension file for video, picture\
+            \ and document"
+                name:
+                    type: string
+                    description: The name of the attachment
+                url:
+                    type: string
+                    description: "Uniform Resource Locator, is a web page address (a subset\
+            \ of URI)"
+                size:
+                    $ref: '#/components/schemas/Quantity'
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: "Complements the description of an element (for instance a product)\
+        \ through video, pictures..."
+        AttachmentRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique-Identifier for this attachment
+                href:
+                    type: string
+                    description: URL serving as reference for the attachment resource
+                description:
+                    type: string
+                    description: A narrative text describing the content of the attachment
+                name:
+                    type: string
+                    description: Name of the related entity.
+                url:
+                    type: string
+                    description: Link to the attachment media/content
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: "Attachment reference. An attachment complements the description\
+        \ of an element (for instance a product) through video, pictures"
+        AttachmentRefOrValue:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier for this particular attachment
+                href:
+                    type: string
+                    description: URI for this Attachment
+                attachmentType:
+                    type: string
+                    description: "Attachment type such as video, picture"
+                content:
+                    type: string
+                    description: "The actual contents of the attachment object, if embedded,\
+            \ encoded as base64"
+                description:
+                    type: string
+                    description: A narrative text describing the content of the attachment
+                mimeType:
+                    type: string
+                    description: "Attachment mime type such as extension file for video, picture\
+            \ and document"
+                name:
+                    type: string
+                    description: The name of the attachment
+                url:
+                    type: string
+                    description: "Uniform Resource Locator, is a web page address (a subset\
+            \ of URI)"
+                size:
+                    $ref: '#/components/schemas/Quantity'
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: "An attachment by value or by reference. For AttachmentRefOrValue,\
+        \ the attribute type,schemaLocation and referredType are related to the contained\
+        \ entity and not to AttchmentRefOrValue itself"
+        BillCycle:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the billing cycle.
+                href:
+                    type: string
+                    description: Reference of the billing cycle
+                billingDate:
+                    type: string
+                    description: The billing/settlement date.
+                    format: date-time
+                billingPeriod:
+                    type: string
+                    description: "A billing time period. It is e.g. the concrete expressed month.\
+            \ Example: 'March'."
+                chargeDate:
+                    type: string
+                    description: "Date through when a payment method (e.g. credit card,...)\
+            \ will be activated."
+                    format: date-time
+                creditDate:
+                    type: string
+                    description: Date through which credits previously received by the billing
+                        system are displeyed on the bill.
+                    format: date-time
+                description:
+                    type: string
+                    description: An explanation regarding this billing cycle. If necessary.
+                mailingDate:
+                    type: string
+                    description: Customer bill mailing date.
+                    format: date-time
+                name:
+                    type: string
+                    description: A short descriptive name of the actual billing cycle
+                paymentDueDate:
+                    type: string
+                    description: "Date, when the payment is due."
+                    format: date-time
+                BillCycleSpecification:
+                    $ref: '#/components/schemas/BillCycleSpecificationRef'
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: A detailed description of a billing cycle and the various sub steps
+                of a billing cycle.
+        BillCycleRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the account
+                href:
+                    type: string
+                    description: Unique reference of the account
+                name:
+                    type: string
+                    description: Name of the account
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: '....'
+        BillCycleSpecification:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the billing cycle.
+                href:
+                    type: string
+                    description: Reference of the billing cycle
+                billingDateShift:
+                    type: integer
+                    description: An offset of a billing/settlement date. The offset is expressed
+                        as number of days with regard to the start of the billing/settlement period.
+                billingPeriod:
+                    type: string
+                    description: "A billing time period. It can be recurring, for example: week,\
+            \ month, quarter of year, year ."
+                chargeDateOffset:
+                    type: integer
+                    description: An offset of a date through which charges previously received
+                        by the billing system will appear on the bill. The offset is expressed
+                        as number of days with regard to the start of the BillingPeriod.
+                creditDateOffset:
+                    type: integer
+                    description: An offset of a date through which credits previously received
+                        by the billing system will appear on the bill. The offset is expressed
+                        as number of days with regard to the start of the BillingPeriod.
+                description:
+                    type: string
+                    description: An explanation regarding this billing cycle. If necessary.
+                frequency:
+                    type: string
+                    description: Frequency of the billing cycle (monthly for instance)
+                mailingDateOffset:
+                    type: integer
+                    description: An offset of a customer bill mailing date. The offset is expressed
+                        as number of days with regard to the start of the BillingPeriod.
+                name:
+                    type: string
+                    description: A short descriptive name of the actual billing cycle
+                paymentDueDateOffset:
+                    type: integer
+                    description: An offset of a payment due date. The offset is expressed as
+                        number of days with regard to the start of the BillingPeriod.
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: A detailed description of a billing cycle and the various sub steps
+                of a billing cycle.
+        BillCycleSpecificationRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the BillCycleSpecification
+                href:
+                    type: string
+                    description: Unique reference of the BillCycleSpecification
+                name:
+                    type: string
+                    description: Name of the BillCycleSpecification
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: '....'
+        BillingAccountRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the billing account
+                href:
+                    type: string
+                    description: Reference of the billing account
+                name:
+                    type: string
+                    description: Name of the billing account
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: BillingAccount reference. A BillingAccount is a detailed description
+                of a bill structure.
+        Characteristic:
+            required:
+                - name
+                - value
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the characteristic
+                name:
+                    type: string
+                    description: Name of the characteristic
+                valueType:
+                    type: string
+                    description: Data type of the value of the characteristic
+                characteristicRelationship:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/CharacteristicRelationship'
+                value:
+                    $ref: '#/components/schemas/Any'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Describes a given characteristic of an object or entity through
+                a name/value pair.
+        CharacteristicRelationship:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the characteristic
+                relationshipType:
+                    type: string
+                    description: The type of relationship
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Another Characteristic that is related to the current Characteristic;
+        CustomerBill:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: "Explanation: Unique identifier of he bill"
+                href:
+                    type: string
+                    description: Bill unique reference
+                billDate:
+                    type: string
+                    description: "Bill date, external customer view (in consequence: different\
+            \ to the production date of the bill)"
+                    format: date-time
+                billNo:
+                    type: string
+                    description: Bill reference known by the customer or the party and displayed
+                        on the bill. Could be different from the id
+                category:
+                    type: string
+                    description: "Category of the bill produced : normal, duplicate, interim,\
+            \ last, trial customer or credit note for example"
+                lastUpdate:
+                    type: string
+                    description: Date of bill last update
+                    format: date-time
+                nextBillDate:
+                    type: string
+                    description: ). Approximate date of  the next bill production given for
+                        information (only used/meaningful for on cycle / regular bills)
+                    format: date-time
+                paymentDueDate:
+                    type: string
+                    description: Date at which the amount due should have been paid
+                    format: date-time
+                amountDue:
+                    $ref: '#/components/schemas/Money'
+                appliedPayment:
+                    type: array
+                    description: "Applied payment is a payment associated with the bill. There\
+            \ may be a partial payment, then there should be several applied payments\
+            \ available. On the other hand, more than one bill could be payed by one\
+            \ payment. In general there is an n:m relation between payment and bill."
+                    items:
+                        $ref: '#/components/schemas/AppliedPayment'
+                billCycle:
+                    $ref: '#/components/schemas/BillCycleRef'
+                billDocument:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/AttachmentRefOrValue'
+                billingAccount:
+                    $ref: '#/components/schemas/BillingAccountRef'
+                billingPeriod:
+                    $ref: '#/components/schemas/TimePeriod'
+                financialAccount:
+                    $ref: '#/components/schemas/FinancialAccountRef'
+                paymentMethod:
+                    $ref: '#/components/schemas/PaymentMethodRef'
+                relatedParty:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                remainingAmount:
+                    $ref: '#/components/schemas/Money'
+                runType:
+                    $ref: '#/components/schemas/CustomerBillRunType'
+                state:
+                    $ref: '#/components/schemas/CustomerBillStateType'
+                taxExcludedAmount:
+                    $ref: '#/components/schemas/Money'
+                taxIncludedAmount:
+                    $ref: '#/components/schemas/Money'
+                taxItem:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/TaxItem'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: The customer bill. Can be a regular recurring bill or an extra
+                bill on demand by the customer or the csp.
+        CustomerBill_Update:
+            type: object
+            properties:
+                billCycle:
+                    $ref: '#/components/schemas/BillCycleRef'
+                state:
+                    $ref: '#/components/schemas/CustomerBillStateType'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: |-
+                The customer bill. Can be a regular recurring bill or an extra bill on demand by the customer or the csp.
+                Skipped properties: id,href,amountDue,appliedPayment,billDate,billDocument,billNo,billingAccount,billingPeriod,category,financialAccount,lastUpdate,nextBillDate,paymentDueDate,paymentMethod,relatedParty,remainingAmount,runType,taxExcludedAmount,taxIncludedAmount,taxItem
+        CustomerBillOnDemand:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: "Explanation: Unique identifier of the customer bill on demand\
+            \ request given by the server"
+                href:
+                    type: string
+                    description: Reference of the customer bill on demand request
+                description:
+                    type: string
+                    description: Additional data describing the customer bill on demand request
+                lastUpdate:
+                    type: string
+                    description: The last date time when the customer bill on demand has been
+                        updated
+                name:
+                    type: string
+                    description: Friendly name to identify the customer bill on demand request
+                billingAccount:
+                    $ref: '#/components/schemas/BillingAccountRef'
+                customerBill:
+                    $ref: '#/components/schemas/CustomerBillRef'
+                relatedParty:
+                    $ref: '#/components/schemas/RelatedParty'
+                state:
+                    $ref: '#/components/schemas/CustomerBillOnDemandStateType'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: This resource is used to manage the creation request of a customer
+                bill in real-time (on demand).
+        CustomerBillOnDemand_Create:
+            type: object
+            properties:
+                description:
+                    type: string
+                    description: Additional data describing the customer bill on demand request
+                lastUpdate:
+                    type: string
+                    description: The last date time when the customer bill on demand has been
+                        updated
+                name:
+                    type: string
+                    description: Friendly name to identify the customer bill on demand request
+                billingAccount:
+                    $ref: '#/components/schemas/BillingAccountRef'
+                customerBill:
+                    $ref: '#/components/schemas/CustomerBillRef'
+                relatedParty:
+                    $ref: '#/components/schemas/RelatedParty'
+                state:
+                    $ref: '#/components/schemas/CustomerBillOnDemandStateType'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: |-
+                This resource is used to manage the creation request of a customer bill in real-time (on demand).
+                Skipped properties: id,href
+        CustomerBillOnDemandStateType:
+            type: string
+            description: "Recommended Enumeration Type (not formal forced in standard):\
+        \ Valid values for 'CustomerBillOnDemand': 'inProgress', 'rejected', 'done',\
+        \ 'terminatedWithError'"
+            enum:
+                - inProgress
+                - rejected
+                - done
+                - terminatedWithError
+        CustomerBillRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: Bill reference.
+        CustomerBillRunType:
+            type: string
+            description: "Recommended Enumeration Type (not formal forced in standard):\
+        \ Valid values for the runType of a bill. The bill could be produced in a\
+        \ regular bill cycle 'onCycle'. Otherwise the bill is produced on a request\
+        \ (e.g. customer request). This could be indicated by 'offCycle'"
+            enum:
+                - onCycle
+                - offCycle
+        CustomerBillStateType:
+            type: string
+            description: "Recommended Enumeration Type (not formal forced in standard):\
+        \ Valid values for the lifecycle state of the bill: new = 'bill is ready to\
+        \ validate or to sent', validated = 'bill is checked (manual / automatic)',\
+        \ sent = 'bill is sent with the channel defined in the billingaccount', settled\
+        \ = 'bill is payed', partiallySettled = 'bill is partially payed', onHold\
+        \ = 'bill will not be in further processing until open issues connected to\
+        \ the bill are solved'"
+            enum:
+                - new
+                - onHold
+                - validated
+                - sent
+                - settled
+                - partiallyPaid
+        EntityRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: Entity reference schema to be use for all entityRef class.
+        FinancialAccountRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: AccountReceivable reference. An account of money owed by a party
+                to another entity in exchange for goods or services that have been delivered
+                or used. An account receivable aggregates the amounts of one or more party
+                accounts (billing or settlement) owned by a given party.
+        Money:
+            type: object
+            properties:
+                unit:
+                    type: string
+                    description: Currency (ISO4217 norm uses 3 letters to define the currency)
+                value:
+                    type: number
+                    description: A positive floating point number
+                    format: float
+            description: A base / value business entity used to represent money
+        PaymentMethodRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the payment mean
+                href:
+                    type: string
+                    description: Reference of the payment mean
+                name:
+                    type: string
+                    description: Name of the payment mean
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: PaymentMethod reference. A payment method defines a specific mean
+                of payment (e.g direct debit).
+        PaymentRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: A name for the payment
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: "If an immediate payment has been done at the product order submission,\
+        \ the payment information are captured and stored (as a reference) in the\
+        \ order."
+        ProductRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+        Quantity:
+            type: object
+            properties:
+                amount:
+                    type: number
+                    description: Numeric value in a given unit
+                    format: float
+                    default: 1.0
+                units:
+                    type: string
+                    description: Unit
+            description: An amount in a given unit
+        RelatedParty:
+            required:
+                - '@referredType'
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                role:
+                    type: string
+                    description: Role played by the related party
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: Related Entity reference. A related party defines party or party
+                role linked to a specific entity.
+        TaxItem:
+            type: object
+            properties:
+                taxCategory:
+                    type: string
+                    description: Tax category
+                taxRate:
+                    type: number
+                    description: Applied rate of the tax
+                    format: float
+                taxAmount:
+                    $ref: '#/components/schemas/Money'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: A tax item is created for each tax rate and tax type used in the
+                bill.
+        TimePeriod:
+            type: object
+            properties:
+                endDateTime:
+                    type: string
+                    description: "End of the time period, using IETC-RFC-3339 format"
+                    format: date-time
+                startDateTime:
+                    type: string
+                    description: "Start of the time period, using IETC-RFC-3339 format. If you\
+            \ define a start, you must also define an end"
+                    format: date-time
+            description: "A period of time, either as a deadline (endDateTime only) a startDateTime\
+        \ only, or both"
+        EventSubscription:
+            required:
+                - callback
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Id of the listener
+                callback:
+                    type: string
+                    description: The callback being registered.
+                query:
+                    type: string
+                    description: additional data to be passed
+            description: Sets the communication endpoint address the service instance must
+                use to deliver notification information
+        EventSubscriptionInput:
+            required:
+                - callback
+            type: object
+            properties:
+                callback:
+                    type: string
+                    description: The callback being registered.
+                query:
+                    type: string
+                    description: additional data to be passed
+            description: Sets the communication endpoint address the service instance must
+                use to deliver notification information
+        Error:
+            required:
+                - code
+                - reason
+            type: object
+            properties:
+                code:
+                    type: string
+                    description: "Application relevant detail, defined in the API or a common\
+            \ list."
+                reason:
+                    type: string
+                    description: Explanation of the reason for the error which can be shown
+                        to a client user.
+                message:
+                    type: string
+                    description: More details and corrective actions related to the error which
+                        can be shown to a client user.
+                status:
+                    type: string
+                    description: HTTP Error code extension
+                referenceError:
+                    type: string
+                    description: URI of documentation describing the error.
+                    format: uri
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class."
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name."
+            description: "Used when an API throws an Error, typically with a HTTP error\
+        \ response-code (3xx, 4xx, 5xx)"
+x-original-swagger-version: "2.0"

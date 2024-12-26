@@ -1,0 +1,3435 @@
+openapi: 3.0.1
+info:
+    title: Service Qualification Management
+    description: "## TMF API Reference: TMF645 - Service Qualification\n\n Version 4.0\
+    \ \n\n Service Qualification API is one of Pre-Ordering Management API Family.\
+    \ Service Qualification API goal is to provide service technical eligibility.\
+    \ Since v4 the API is split in 2 resources to distinguish specific service qualification\
+    \ request to be performed on a described configurated service (or a list of configured\
+    \ services) from a retrieval of services eligible for a given context. The API\
+    \ allows to manage synchronous as asynchronous eligibility response (eligibility\
+    \ provided in POST response or later with an id and state provided ).  \n\n###\
+    \ CheckServiceQualification Resource \n\n This resource is use to check a configured\
+    \ service eligibility (or a list of service). A qualification result is provided\
+    \ in response. Requested could ask for unavailability reason and/or for alternate\
+    \ proposal \n\n### TMF645 performs the following operations on the check service\
+    \ qualification resource :\n- Retrieve a checkServiceQualification or a collection\
+    \ of checkServiceQualification depending on filter criteria\n- Partial update\
+    \ of a checkServiceQualification \n- Create a checkServiceQualification (including\
+    \ default values and creation rules)\n- Delete a checkServiceQualification (for\
+    \ administration purposes)\n- Manage notification on checkServiceQualification\n\
+    \n### Query Service Qualification resource\n\n Query Service Qualification is\
+    \ used to retrieve a list of service eligible in a given request provided by requester\
+    \ (via searchCriteria).\n\n### TMF645 performs the following operations on a query\
+    \ service qualification resource:\n\n- Retrieval a queryServiceQualification or\
+    \ a list of queryServiceQualification\n- Partial update of a queryServiceQualification\n\
+    - Creation of a queryServiceQualification\n- Deletion of a queryServiceQualification\n\
+    - Notification on queryServiceQualification\n\n Copyright (c) TM Forum 2019. All\
+    \ Rights Reserved"
+    version: 4.0.0
+servers:
+    -   url: https://serverRoot/tmf-api/serviceQualificationManagement/v4
+tags:
+    -   name: checkServiceQualification
+    -   name: queryServiceQualification
+    -   name: notification listeners (client side)
+    -   name: events subscription
+paths:
+    /checkServiceQualification:
+        get:
+            tags:
+                - checkServiceQualification
+            summary: List or find CheckServiceQualification objects
+            description: This operation list or find CheckServiceQualification entities
+            operationId: listCheckServiceQualification
+            parameters:
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to be provided in response
+                    schema:
+                        type: string
+                -   name: offset
+                    in: query
+                    description: Requested index for start of resources to be provided in response
+                    schema:
+                        type: integer
+                -   name: limit
+                    in: query
+                    description: Requested number of resources to be provided in response
+                    schema:
+                        type: integer
+            responses:
+                "200":
+                    description: Success
+                    headers:
+                        X-Total-Count:
+                            description: Total number of items matching criteria
+                            schema:
+                                type: integer
+                        X-Result-Count:
+                            description: Actual number of items returned in the response body
+                            schema:
+                                type: integer
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/CheckServiceQualification'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        post:
+            tags:
+                - checkServiceQualification
+            summary: Creates a CheckServiceQualification
+            description: This operation creates a CheckServiceQualification entity.
+            operationId: createCheckServiceQualification
+            requestBody:
+                description: The CheckServiceQualification to be created
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/CheckServiceQualification_Create'
+                required: true
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/CheckServiceQualification'
+                "201":
+                    description: Created
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/CheckServiceQualification'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: checkServiceQualification
+    /checkServiceQualification/{id}:
+        get:
+            tags:
+                - checkServiceQualification
+            summary: Retrieves a CheckServiceQualification by ID
+            description: This operation retrieves a CheckServiceQualification entity. Attribute
+                selection is enabled for all first level attributes.
+            operationId: retrieveCheckServiceQualification
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the CheckServiceQualification
+                    required: true
+                    schema:
+                        type: string
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to provide in response
+                    schema:
+                        type: string
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/CheckServiceQualification'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        delete:
+            tags:
+                - checkServiceQualification
+            summary: Deletes a CheckServiceQualification
+            description: This operation deletes a CheckServiceQualification entity.
+            operationId: deleteCheckServiceQualification
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the CheckServiceQualification
+                    required: true
+                    schema:
+                        type: string
+            responses:
+                "204":
+                    description: Deleted
+                    content: { }
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        patch:
+            tags:
+                - checkServiceQualification
+            summary: Updates partially a CheckServiceQualification
+            description: This operation updates partially a CheckServiceQualification entity.
+            operationId: patchCheckServiceQualification
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the CheckServiceQualification
+                    required: true
+                    schema:
+                        type: string
+            requestBody:
+                description: The CheckServiceQualification to be updated
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/CheckServiceQualification_Update'
+                required: true
+            responses:
+                "200":
+                    description: Updated
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/CheckServiceQualification'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: checkServiceQualification
+    /queryServiceQualification:
+        get:
+            tags:
+                - queryServiceQualification
+            summary: List or find QueryServiceQualification objects
+            description: This operation list or find QueryServiceQualification entities
+            operationId: listQueryServiceQualification
+            parameters:
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to be provided in response
+                    schema:
+                        type: string
+                -   name: offset
+                    in: query
+                    description: Requested index for start of resources to be provided in response
+                    schema:
+                        type: integer
+                -   name: limit
+                    in: query
+                    description: Requested number of resources to be provided in response
+                    schema:
+                        type: integer
+            responses:
+                "200":
+                    description: Success
+                    headers:
+                        X-Total-Count:
+                            description: Total number of items matching criteria
+                            schema:
+                                type: integer
+                        X-Result-Count:
+                            description: Actual number of items returned in the response body
+                            schema:
+                                type: integer
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/QueryServiceQualification'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        post:
+            tags:
+                - queryServiceQualification
+            summary: Creates a QueryServiceQualification
+            description: This operation creates a QueryServiceQualification entity.
+            operationId: createQueryServiceQualification
+            requestBody:
+                description: The QueryServiceQualification to be created
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/QueryServiceQualification_Create'
+                required: true
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/CheckServiceQualification'
+                "201":
+                    description: Created
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/QueryServiceQualification'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: queryServiceQualification
+    /queryServiceQualification/{id}:
+        get:
+            tags:
+                - queryServiceQualification
+            summary: Retrieves a QueryServiceQualification by ID
+            description: This operation retrieves a QueryServiceQualification entity. Attribute
+                selection is enabled for all first level attributes.
+            operationId: retrieveQueryServiceQualification
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the QueryServiceQualification
+                    required: true
+                    schema:
+                        type: string
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to provide in response
+                    schema:
+                        type: string
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/QueryServiceQualification'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        delete:
+            tags:
+                - queryServiceQualification
+            summary: Deletes a QueryServiceQualification
+            description: This operation deletes a QueryServiceQualification entity.
+            operationId: deleteQueryServiceQualification
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the QueryServiceQualification
+                    required: true
+                    schema:
+                        type: string
+            responses:
+                "204":
+                    description: Deleted
+                    content: { }
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        patch:
+            tags:
+                - queryServiceQualification
+            summary: Updates partially a QueryServiceQualification
+            description: This operation updates partially a QueryServiceQualification entity.
+            operationId: patchQueryServiceQualification
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the QueryServiceQualification
+                    required: true
+                    schema:
+                        type: string
+            requestBody:
+                description: The QueryServiceQualification to be updated
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/QueryServiceQualification_Update'
+                required: true
+            responses:
+                "200":
+                    description: Updated
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/QueryServiceQualification'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: queryServiceQualification
+    /hub:
+        post:
+            tags:
+                - events subscription
+            summary: Register a listener
+            description: "Sets the communication endpoint address the service instance must\
+        \ use to deliver information about its health state, execution state, failures\
+        \ and metrics."
+            operationId: registerListener
+            requestBody:
+                description: Data containing the callback endpoint to deliver the information
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/EventSubscriptionInput'
+                required: true
+            responses:
+                "201":
+                    description: Subscribed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /hub/{id}:
+        delete:
+            tags:
+                - events subscription
+            summary: Unregister a listener
+            description: "Resets the communication endpoint address the service instance\
+        \ must use to deliver information about its health state, execution state,\
+        \ failures and metrics."
+            operationId: unregisterListener
+            parameters:
+                -   name: id
+                    in: path
+                    description: The id of the registered listener
+                    required: true
+                    schema:
+                        type: string
+            responses:
+                "204":
+                    description: Deleted
+                    content: { }
+                "400":
+                    description: Bad request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /listener/checkServiceQualificationCreateEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity CheckServiceQualificationCreateEvent
+            description: Example of a client listener for receiving the notification CheckServiceQualificationCreateEvent
+            operationId: listenToCheckServiceQualificationCreateEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/CheckServiceQualificationCreateEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /listener/checkServiceQualificationAttributeValueChangeEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity CheckServiceQualificationAttributeValueChangeEvent
+            description: Example of a client listener for receiving the notification CheckServiceQualificationAttributeValueChangeEvent
+            operationId: listenToCheckServiceQualificationAttributeValueChangeEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/CheckServiceQualificationAttributeValueChangeEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /listener/checkServiceQualificationStateChangeEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity CheckServiceQualificationStateChangeEvent
+            description: Example of a client listener for receiving the notification CheckServiceQualificationStateChangeEvent
+            operationId: listenToCheckServiceQualificationStateChangeEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/CheckServiceQualificationStateChangeEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /listener/checkServiceQualificationDeleteEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity CheckServiceQualificationDeleteEvent
+            description: Example of a client listener for receiving the notification CheckServiceQualificationDeleteEvent
+            operationId: listenToCheckServiceQualificationDeleteEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/CheckServiceQualificationDeleteEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /listener/checkServiceQualificationInformationRequiredEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity CheckServiceQualificationInformationRequiredEvent
+            description: Example of a client listener for receiving the notification CheckServiceQualificationInformationRequiredEvent
+            operationId: listenToCheckServiceQualificationInformationRequiredEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/CheckServiceQualificationInformationRequiredEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /listener/queryServiceQualificationCreateEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity QueryServiceQualificationCreateEvent
+            description: Example of a client listener for receiving the notification QueryServiceQualificationCreateEvent
+            operationId: listenToQueryServiceQualificationCreateEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/QueryServiceQualificationCreateEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /listener/queryServiceQualificationStateChangeEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity QueryServiceQualificationStateChangeEvent
+            description: Example of a client listener for receiving the notification QueryServiceQualificationStateChangeEvent
+            operationId: listenToQueryServiceQualificationStateChangeEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/QueryServiceQualificationStateChangeEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /listener/queryServiceQualificationDeleteEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity QueryServiceQualificationDeleteEvent
+            description: Example of a client listener for receiving the notification QueryServiceQualificationDeleteEvent
+            operationId: listenToQueryServiceQualificationDeleteEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/QueryServiceQualificationDeleteEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+components:
+    schemas:
+        Addressable:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: unique identifier
+                href:
+                    type: string
+                    description: Hyperlink reference
+                    format: uri
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Base schema for adressable entities
+        AlternateServiceProposal:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Identifier of a alternate service proposal
+                alternateServiceAvailabilityDate:
+                    type: string
+                    description: Alternate availability date in case seller is not able to meet
+                        requested expected availability date for the service
+                    format: date-time
+                alternateService:
+                    $ref: '#/components/schemas/ServiceRefOrValue'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Alternate service proposal is used when the requested service is
+                not available with characteristic and date asked for. An alternate proposal
+                could be a distinct serviceSpecification close to requested one or same as
+                requested but with a different activation date
+        Any:
+            type: object
+        Characteristic:
+            required:
+                - name
+                - value
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the characteristic
+                name:
+                    type: string
+                    description: Name of the characteristic
+                valueType:
+                    type: string
+                    description: Data type of the value of the characteristic
+                characteristicRelationship:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/CharacteristicRelationship'
+                value:
+                    $ref: '#/components/schemas/Any'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+            description: Describes a given characteristic of an object or entity through
+                a name/value pair.
+        CharacteristicRelationship:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the characteristic
+                relationshipType:
+                    type: string
+                    description: The type of relationship
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Another Characteristic that is related to the current Characteristic;
+        CheckServiceQualification:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the serviceQualification resource
+                href:
+                    type: string
+                    description: Hyperlink to access the serviceQualification
+                checkServiceQualificationDate:
+                    type: string
+                    description: Date when the serviceQualification was submitted
+                    format: date-time
+                description:
+                    type: string
+                    description: Description of the serviceQualification
+                effectiveQualificationDate:
+                    type: string
+                    description: Effective date to serviceQualification completion
+                    format: date-time
+                estimatedResponseDate:
+                    type: string
+                    description: Date when the requester expect to provide an answer for the
+                        qualification request.
+                    format: date-time
+                expectedQualificationDate:
+                    type: string
+                    description: A date (DateTime). Deadline date when the requester expected
+                        a qualification answer.
+                    format: date-time
+                expirationDate:
+                    type: string
+                    description: Date when the qualification response expires
+                    format: date-time
+                externalId:
+                    type: string
+                    description: Identifier provided by the requester
+                instantSyncQualification:
+                    type: boolean
+                    description: An indicator which when the value is "true" means that requester
+                        expects to get qualifcation result immediately in the response. If the
+                        indicator is true then the response code of 200 indicates the operation
+                        is successful otherwise a task is created with a response 201.
+                provideAlternative:
+                    type: boolean
+                    description: When the value is TRUE means that alternative solutions should
+                        be provided
+                    default: false
+                provideUnavailabilityReason:
+                    type: boolean
+                    description: When the value is TRUE means that unavailability reason are
+                        expected for non available service.
+                    default: false
+                qualificationResult:
+                    type: string
+                    description: "Qualification result for this serviceQualification. It could\
+            \ be:  qualified (all qualification item are qualified), alternate (At\
+            \ least one item alternate and no item with  unqualified), unqualified\
+            \ (At least one item unqualified)"
+                relatedParty:
+                    type: array
+                    description: "A list of related party references, defines party or party\
+            \ role linked to this request."
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                serviceQualificationItem:
+                    type: array
+                    description: A list of service qualification items.
+                    items:
+                        $ref: '#/components/schemas/CheckServiceQualificationItem'
+                state:
+                    $ref: '#/components/schemas/TaskStateType'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: "CheckServiceQualification is used to perform a technical eligibility\
+        \ on service configuration(s). It allows to retrieve services that are technically\
+        \ available in the context of the interaction (place, party, service characteristics,\
+        \ ...)."
+        CheckServiceQualification_Create:
+            required:
+                - serviceQualificationItem
+            type: object
+            properties:
+                description:
+                    type: string
+                    description: Description of the serviceQualification
+                expectedQualificationDate:
+                    type: string
+                    description: A date (DateTime). Deadline date when the requester expected
+                        a qualification answer.
+                    format: date-time
+                externalId:
+                    type: string
+                    description: Identifier provided by the requester
+                instantSyncQualification:
+                    type: boolean
+                    description: An indicator which when the value is "true" means that requester
+                        expects to get qualifcation result immediately in the response. If the
+                        indicator is true then the response code of 200 indicates the operation
+                        is successful otherwise a task is created with a response 201.
+                provideAlternative:
+                    type: boolean
+                    description: When the value is TRUE means that alternative solutions should
+                        be provided
+                    default: false
+                provideUnavailabilityReason:
+                    type: boolean
+                    description: When the value is TRUE means that unavailability reason are
+                        expected for non available service.
+                    default: false
+                relatedParty:
+                    type: array
+                    description: "A list of related party references, defines party or party\
+            \ role linked to this request."
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                serviceQualificationItem:
+                    minItems: 1
+                    type: array
+                    description: A list of service qualification items.
+                    items:
+                        $ref: '#/components/schemas/CheckServiceQualificationItem'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: |-
+                CheckServiceQualification is used to perform a technical eligibility on service configuration(s). It allows to retrieve services that are technically available in the context of the interaction (place, party, service characteristics, ...).
+                Skipped properties: id,href,state,effectiveQualificationDate,qualificationResult,expirationDate,checkServiceQualificationDate,estimatedResponseDate,serviceQualificationItem.alternateServiceProposal,serviceQualificationItem.state,serviceQualificationItem.qualificationResult
+        CheckServiceQualification_Update:
+            type: object
+            properties:
+                description:
+                    type: string
+                    description: Description of the serviceQualification
+                effectiveQualificationDate:
+                    type: string
+                    description: Effective date to serviceQualification completion
+                    format: date-time
+                estimatedResponseDate:
+                    type: string
+                    description: Date when the requester expect to provide an answer for the
+                        qualification request.
+                    format: date-time
+                expectedQualificationDate:
+                    type: string
+                    description: A date (DateTime). Deadline date when the requester expected
+                        a qualification answer.
+                    format: date-time
+                expirationDate:
+                    type: string
+                    description: Date when the qualification response expires
+                    format: date-time
+                externalId:
+                    type: string
+                    description: Identifier provided by the requester
+                instantSyncQualification:
+                    type: boolean
+                    description: An indicator which when the value is "true" means that requester
+                        expects to get qualifcation result immediately in the response. If the
+                        indicator is true then the response code of 200 indicates the operation
+                        is successful otherwise a task is created with a response 201.
+                provideAlternative:
+                    type: boolean
+                    description: When the value is TRUE means that alternative solutions should
+                        be provided
+                    default: false
+                provideUnavailabilityReason:
+                    type: boolean
+                    description: When the value is TRUE means that unavailability reason are
+                        expected for non available service.
+                    default: false
+                qualificationResult:
+                    type: string
+                    description: "Qualification result for this serviceQualification. It could\
+            \ be:  qualified (all qualification item are qualified), alternate (At\
+            \ least one item alternate and no item with  unqualified), unqualified\
+            \ (At least one item unqualified)"
+                relatedParty:
+                    type: array
+                    description: "A list of related party references, defines party or party\
+            \ role linked to this request."
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                serviceQualificationItem:
+                    type: array
+                    description: A list of service qualification items.
+                    items:
+                        $ref: '#/components/schemas/CheckServiceQualificationItem'
+                state:
+                    $ref: '#/components/schemas/TaskStateType'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: |-
+                CheckServiceQualification is used to perform a technical eligibility on service configuration(s). It allows to retrieve services that are technically available in the context of the interaction (place, party, service characteristics, ...).
+                Skipped properties: id,href,checkServiceQualificationDate
+        CheckServiceQualificationItem:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Id of the Service Qualification Item
+                expectedActivationDate:
+                    type: string
+                    description: The date when the service is expected to be activated
+                    format: date-time
+                expectedServiceAvailabilityDate:
+                    type: string
+                    description: Date when the requester looks for service availability
+                    format: date-time
+                expirationDate:
+                    type: string
+                    description: Date when the qualification item response expires
+                    format: date-time
+                qualificationResult:
+                    type: string
+                    description: "Qualification result for serviceQualification item. It could\
+            \ be: - qualified (request service are available), - unqualified (requested\
+            \ not available and not alternate available), - alternate (requested not\
+            \ available but proposal available)"
+                state:
+                    type: string
+                    description: "State of the serviceQualification item (acknowledged, inProgress,\
+            \ terminatedWithError, done)"
+                alternateServiceProposal:
+                    type: array
+                    description: Alternate service proposal is used when the requested service
+                        is not available with characteristic and date asked for. An alternate
+                        proposal could be a distinct service Spec close to requested one or same
+                        as requested but with a different availability date.
+                    items:
+                        $ref: '#/components/schemas/AlternateServiceProposal'
+                category:
+                    $ref: '#/components/schemas/ServiceCategoryRef'
+                eligibilityUnavailabilityReason:
+                    type: array
+                    description: "A list of eligibility unavailability reasons (EligibilityUnavailabilityReason\
+            \ [*]). Reason for eligibility result if the serviceQualification result\
+            \ is no (meaning the service is not available)."
+                    items:
+                        $ref: '#/components/schemas/ServiceEligibilityUnavailabilityReason'
+                qualificationItemRelationship:
+                    type: array
+                    description: A list of qualification item relationships used to describe
+                        relationship between serviceQualification item from the same serviceQualification.
+                    items:
+                        $ref: '#/components/schemas/ServiceQualificationItemRelationship'
+                qualificationRelationship:
+                    type: array
+                    description: Structure used to describe relationship between serviceQualification
+                        item from the same serviceQualification.
+                    items:
+                        $ref: '#/components/schemas/ServiceQualificationRelationship'
+                service:
+                    $ref: '#/components/schemas/ServiceRefOrValue'
+                terminationError:
+                    type: array
+                    description: If qualificationItem has not been done properly this lists
+                        the error(s) that caused termination of the qualification.
+                    items:
+                        $ref: '#/components/schemas/TerminationError'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: A ServiceQualificationItem relates to a specific service being
+                checked in a qualification operation.
+        ConstraintRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: reference id to the target constraint
+                href:
+                    type: string
+                    description: Hyperlink reference to the target constraint
+                name:
+                    type: string
+                    description: Name given to the constraint
+                version:
+                    type: string
+                    description: constraint version
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The (class) type of the referred constraint
+            description: Constraint reference. The Constraint resource represents a policy/rule
+                applied to an entity or entity spec.
+        EntityRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: unique identifier
+                href:
+                    type: string
+                    description: Hyperlink reference
+                    format: uri
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: Entity reference schema to be use for all entityRef class.
+        EntityValue:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Base entity value  schema for use in TMForum Open-APIs
+        Extensible:
+            type: object
+            properties:
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+            description: Base Extensible schema for use in TMForum Open-APIs
+        Feature:
+            required:
+                - featureCharacteristic
+                - name
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the feature.
+                isBundle:
+                    type: boolean
+                    description: True if this is a feature group. Default is false.
+                isEnabled:
+                    type: boolean
+                    description: True if this feature is enabled. Default is true.
+                name:
+                    type: string
+                    description: This is the name for the feature.
+                constraint:
+                    type: array
+                    description: This is a list of feature constraints.
+                    items:
+                        $ref: '#/components/schemas/ConstraintRef'
+                featureCharacteristic:
+                    minItems: 1
+                    type: array
+                    description: This is a list of Characteristics for a particular feature.
+                    items:
+                        $ref: '#/components/schemas/Characteristic'
+                featureRelationship:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/FeatureRelationship'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Configuration feature.
+        FeatureRelationship:
+            required:
+                - name
+                - relationshipType
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the target feature.
+                name:
+                    type: string
+                    description: This is the name of the target feature.
+                relationshipType:
+                    type: string
+                    description: This is the type of the feature relationship.
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Configuration feature
+        Note:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: "Identifier of the note within its containing entity (may or\
+            \ may not be globally unique, depending on provider implementation)"
+                author:
+                    type: string
+                    description: Author of the note
+                date:
+                    type: string
+                    description: Date of the note
+                    format: date-time
+                text:
+                    type: string
+                    description: Text of the note
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Extra information about a given entity
+        OrderItemActionType:
+            type: string
+            description: action to be performed on the product
+            enum:
+                - add
+                - modify
+                - delete
+                - noChange
+        Place:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the place
+                href:
+                    type: string
+                    description: Unique reference of the place
+                name:
+                    type: string
+                    description: "A user-friendly name for the place, such as [Paris Store],\
+            \ [London Store], [Main Home]"
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Place reference. Place defines the places where the products are
+                sold or delivered.
+        PlaceRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: unique identifier
+                href:
+                    type: string
+                    description: Hyperlink reference
+                    format: uri
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: Place reference. PlaceRef defines the placeRefs where the products
+                are sold or delivered.
+        QueryServiceQualification:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the serviceQualification resource
+                href:
+                    type: string
+                    description: Hyperlink to access the serviceQualification
+                description:
+                    type: string
+                    description: Description of the serviceQualification
+                effectiveQualificationDate:
+                    type: string
+                    description: Effective date to serviceQualification completion
+                    format: date-time
+                estimatedResponseDate:
+                    type: string
+                    description: Date when the requester expect to provide an answer for the
+                        qualification request.
+                    format: date-time
+                expectedQualificationDate:
+                    type: string
+                    description: A date (DateTime). Deadline date when the requester expected
+                        a qualification answer.
+                    format: date-time
+                expirationDate:
+                    type: string
+                    description: Date when the qualification response expires
+                    format: date-time
+                externalId:
+                    type: string
+                    description: Identifier provided by the requester
+                instantSyncQualification:
+                    type: boolean
+                    description: An indicator which when the value is "true" means that requester
+                        expects to get qualifcation result immediately in the response. If the
+                        indicator is true then the response code of 200 indicates the operation
+                        is successful otherwise a task is created with a response 201.
+                queryServiceQualificationDate:
+                    type: string
+                    description: Date when the serviceQualification was submitted
+                    format: date-time
+                relatedParty:
+                    type: array
+                    description: "A list of related party references, defines party or party\
+            \ role linked to this request."
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                searchCriteria:
+                    $ref: '#/components/schemas/ServiceQualificationItem'
+                serviceQualificationItem:
+                    type: array
+                    description: A list of service qualification items.
+                    items:
+                        $ref: '#/components/schemas/ServiceQualificationItem'
+                state:
+                    $ref: '#/components/schemas/TaskStateType'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: "QueryServiceQualification is used to retrieve a list of services\
+        \ that are technically available in the context of the interaction (place,\
+        \ party, service characteristics, ...)."
+        QueryServiceQualification_Create:
+            required:
+                - searchCriteria
+            type: object
+            properties:
+                description:
+                    type: string
+                    description: Description of the serviceQualification
+                expectedQualificationDate:
+                    type: string
+                    description: A date (DateTime). Deadline date when the requester expected
+                        a qualification answer.
+                    format: date-time
+                externalId:
+                    type: string
+                    description: Identifier provided by the requester
+                instantSyncQualification:
+                    type: boolean
+                    description: An indicator which when the value is "true" means that requester
+                        expects to get qualifcation result immediately in the response. If the
+                        indicator is true then the response code of 200 indicates the operation
+                        is successful otherwise a task is created with a response 201.
+                relatedParty:
+                    type: array
+                    description: "A list of related party references, defines party or party\
+            \ role linked to this request."
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                searchCriteria:
+                    $ref: '#/components/schemas/ServiceQualificationItem'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: |-
+                QueryServiceQualification is used to retrieve a list of services that are technically available in the context of the interaction (place, party, service characteristics, ...).
+                Skipped properties: id,href,serviceQualificationItem,state,effectiveQualificationDate,expirationDate,estimatedResponseDate,queryServiceQualificationDate
+        QueryServiceQualification_Update:
+            type: object
+            properties:
+                description:
+                    type: string
+                    description: Description of the serviceQualification
+                effectiveQualificationDate:
+                    type: string
+                    description: Effective date to serviceQualification completion
+                    format: date-time
+                estimatedResponseDate:
+                    type: string
+                    description: Date when the requester expect to provide an answer for the
+                        qualification request.
+                    format: date-time
+                expectedQualificationDate:
+                    type: string
+                    description: A date (DateTime). Deadline date when the requester expected
+                        a qualification answer.
+                    format: date-time
+                expirationDate:
+                    type: string
+                    description: Date when the qualification response expires
+                    format: date-time
+                externalId:
+                    type: string
+                    description: Identifier provided by the requester
+                instantSyncQualification:
+                    type: boolean
+                    description: An indicator which when the value is "true" means that requester
+                        expects to get qualifcation result immediately in the response. If the
+                        indicator is true then the response code of 200 indicates the operation
+                        is successful otherwise a task is created with a response 201.
+                relatedParty:
+                    type: array
+                    description: "A list of related party references, defines party or party\
+            \ role linked to this request."
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                searchCriteria:
+                    $ref: '#/components/schemas/ServiceQualificationItem'
+                serviceQualificationItem:
+                    type: array
+                    description: A list of service qualification items.
+                    items:
+                        $ref: '#/components/schemas/ServiceQualificationItem'
+                state:
+                    $ref: '#/components/schemas/TaskStateType'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: |-
+                QueryServiceQualification is used to retrieve a list of services that are technically available in the context of the interaction (place, party, service characteristics, ...).
+                Skipped properties: id,href,queryServiceQualificationDate
+        RelatedEntityRefOrValue:
+            required:
+                - role
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                role:
+                    type: string
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: "A reference to an entity, where the type of the entity is not\
+        \ known in advance. A related entity defines a entity described by reference\
+        \ or by value linked to a specific entity. The polymorphic attributes @type,\
+        \ @schemaLocation & @referredType are related to the Entity and not the RelatedEntityRefOrValue\
+        \ class itself"
+        RelatedParty:
+            required:
+                - '@referredType'
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: unique identifier
+                href:
+                    type: string
+                    description: Hyperlink reference
+                    format: uri
+                name:
+                    type: string
+                    description: Name of the related entity.
+                role:
+                    type: string
+                    description: Role played by the related party
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: Related Entity reference. A related party defines party or party
+                role linked to a specific entity.
+        RelatedPlaceRefOrValue:
+            required:
+                - role
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the place
+                href:
+                    type: string
+                    description: Unique reference of the place
+                name:
+                    type: string
+                    description: "A user-friendly name for the place, such as [Paris Store],\
+            \ [London Store], [Main Home]"
+                role:
+                    type: string
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: "Related Entity reference. A related place defines a place described\
+        \ by reference or by value linked to a specific entity. The polymorphic attributes\
+        \ @type, @schemaLocation & @referredType are related to the place entity and\
+        \ not the RelatedPlaceRefOrValue class itself"
+        RelatedServiceOrderItem:
+            required:
+                - itemId
+                - serviceOrderId
+            type: object
+            properties:
+                itemId:
+                    type: string
+                    description: Identifier of the order item where the service was managed
+                role:
+                    type: string
+                    description: role of the service order item for this service
+                serviceOrderHref:
+                    type: string
+                    description: Reference of the related entity.
+                serviceOrderId:
+                    type: string
+                    description: Unique identifier of a related entity.
+                itemAction:
+                    $ref: '#/components/schemas/OrderItemActionType'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: RelatedServiceOrderItem (a ServiceOrder item) .The service order
+                item which triggered service creation/change/termination.
+        ResourceRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: unique identifier
+                href:
+                    type: string
+                    description: Hyperlink reference
+                    format: uri
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+        Service:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the service
+                href:
+                    type: string
+                    description: Reference of the service
+                category:
+                    type: string
+                    description: Is it a customer facing or resource facing service
+                description:
+                    type: string
+                    description: Free-text description of the service
+                endDate:
+                    type: string
+                    description: Date when the service ends
+                    format: date-time
+                hasStarted:
+                    type: boolean
+                    description: "If TRUE, this Service has already been started"
+                isBundle:
+                    type: boolean
+                    description: "If true, the service is a ServiceBundle which regroup a service\
+            \ hierachy. If false, the service is a 'atomic' service (hierachy leaf)."
+                isServiceEnabled:
+                    type: boolean
+                    description: "If FALSE and hasStarted is FALSE, this particular Service\
+            \ has NOT been enabled for use - if FALSE and hasStarted is TRUE then\
+            \ the service has failed "
+                isStateful:
+                    type: boolean
+                    description: "If TRUE, this Service can be changed without affecting any\
+            \ other services"
+                name:
+                    type: string
+                    description: Name of the service
+                serviceDate:
+                    type: string
+                    description: Date when the service was created (whatever its status).
+                serviceType:
+                    type: string
+                    description: Business type of the service
+                startDate:
+                    type: string
+                    description: Date when the service starts
+                    format: date-time
+                startMode:
+                    type: string
+                    description: "This attribute is an enumerated integer that indicates how\
+            \ the Service is started, such as: 0: Unknown; 1: Automatically by the\
+            \ managed environment; 2: Automatically by the owning device; 3: Manually\
+            \ by the Provider of the Service; 4: Manually by a Customer of the Provider;\
+            \ 5: Any of the above"
+                feature:
+                    type: array
+                    description: 'A list of feature associated with this service '
+                    items:
+                        $ref: '#/components/schemas/Feature'
+                note:
+                    type: array
+                    description: A list of notes made on this service
+                    items:
+                        $ref: '#/components/schemas/Note'
+                place:
+                    type: array
+                    description: "A list of places (Place [*]). Used to define a place useful\
+            \ for the service (for example a geographical place whre the service is\
+            \ installed)"
+                    items:
+                        $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+                relatedEntity:
+                    type: array
+                    description: 'A list of related  entity in relationship with this service '
+                    items:
+                        $ref: '#/components/schemas/RelatedEntityRefOrValue'
+                relatedParty:
+                    type: array
+                    description: "A list of related party references (RelatedParty [*]). A related\
+            \ party defines party or party role linked to a specific entity"
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                serviceCharacteristic:
+                    type: array
+                    description: "A list of characteristics that characterize this service (ServiceCharacteristic\
+            \ [*]) "
+                    items:
+                        $ref: '#/components/schemas/Characteristic'
+                serviceOrderItem:
+                    type: array
+                    description: A list of service order items related to this service
+                    items:
+                        $ref: '#/components/schemas/RelatedServiceOrderItem'
+                serviceRelationship:
+                    type: array
+                    description: "A list of service relationships (ServiceRelationship [*]).\
+            \ Describes links with other service(s) in the inventory."
+                    items:
+                        $ref: '#/components/schemas/ServiceRelationship'
+                serviceSpecification:
+                    $ref: '#/components/schemas/ServiceSpecificationRef'
+                state:
+                    $ref: '#/components/schemas/ServiceStateType'
+                supportingResource:
+                    type: array
+                    description: "A list of supporting resources (SupportingResource [*]).Note:\
+            \ only Service of type RFS can be associated with Resources"
+                    items:
+                        $ref: '#/components/schemas/ResourceRef'
+                supportingService:
+                    type: array
+                    description: "A list of supporting services (SupportingService [*]). A collection\
+            \ of services that support this service (bundling, link CFS to RFS)"
+                    items:
+                        $ref: '#/components/schemas/ServiceRefOrValue'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: "Service is a base class for defining the Service hierarchy. All\
+        \ Services are characterized as either being possibly visible and usable by\
+        \ a Customer or not. This gives rise to the two subclasses of Service: CustomerFacingService\
+        \ and ResourceFacingService."
+        ServiceCategoryRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: unique identifier
+                href:
+                    type: string
+                    description: Hyperlink reference
+                    format: uri
+                name:
+                    type: string
+                    description: Name of the related entity.
+                version:
+                    type: string
+                    description: Category version
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: The (service) category resource is used to group service candidates
+                in logical containers. Categories can contain other categories.
+        ServiceEligibilityUnavailabilityReason:
+            type: object
+            properties:
+                code:
+                    type: string
+                    description: Unavailability reason code
+                label:
+                    type: string
+                    description: Unavailability reason label
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Reason for eligibility result if the ServiceQualification result
+                is no (meaning the Service is not available)
+        ServiceQualification:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the serviceQualification resource
+                href:
+                    type: string
+                    description: Hyperlink to access the serviceQualification
+                description:
+                    type: string
+                    description: Description of the serviceQualification
+                effectiveQualificationDate:
+                    type: string
+                    description: Effective date to serviceQualification completion
+                    format: date-time
+                estimatedResponseDate:
+                    type: string
+                    description: Date when the requester expect to provide an answer for the
+                        qualification request.
+                    format: date-time
+                expectedQualificationDate:
+                    type: string
+                    description: A date (DateTime). Deadline date when the requester expected
+                        a qualification answer.
+                    format: date-time
+                expirationDate:
+                    type: string
+                    description: Date when the qualification response expires
+                    format: date-time
+                externalId:
+                    type: string
+                    description: Identifier provided by the requester
+                instantSyncQualification:
+                    type: boolean
+                    description: An indicator which when the value is "true" means that requester
+                        expects to get qualifcation result immediately in the response. If the
+                        indicator is true then the response code of 200 indicates the operation
+                        is successful otherwise a task is created with a response 201.
+                relatedParty:
+                    type: array
+                    description: "A list of related party references, defines party or party\
+            \ role linked to this request."
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                state:
+                    $ref: '#/components/schemas/TaskStateType'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: "ServiceQualification is used to perform a technical eligibility.\
+        \ It allows to retrieve a list of services that are technically available\
+        \ in the context of the interaction (place, party, service characteristics,\
+        \ ...)."
+        ServiceQualificationItem:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Id of the Service Qualification Item
+                expectedActivationDate:
+                    type: string
+                    description: The date when the service is expected to be activated
+                    format: date-time
+                expectedServiceAvailabilityDate:
+                    type: string
+                    description: Date when the requester looks for service availability
+                    format: date-time
+                expirationDate:
+                    type: string
+                    description: Date when the qualification item response expires
+                    format: date-time
+                category:
+                    $ref: '#/components/schemas/ServiceCategoryRef'
+                service:
+                    $ref: '#/components/schemas/ServiceRefOrValue'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: A ServiceQualificationItem relates to a specific service being
+                checked in a qualification operation.
+        ServiceQualificationItemRelationship:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Id of the serviceQualificationItem (from the same serviceQualificationItem).
+                relationshipType:
+                    type: string
+                    description: "Type of relationship (ex: reliesOn, connectedTo, etc...)"
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Structure used to describe relationship between serviceQualification
+                items from the same serviceQualification.
+        ServiceQualificationRelationship:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: The id of the target qualification pointed to by this relationship
+                relationshipType:
+                    type: string
+                    description: The type of relationship
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+        ServiceRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: unique identifier
+                href:
+                    type: string
+                    description: Hyperlink reference
+                    format: uri
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: "Service reference, for when Service is used by other entities"
+        ServiceRefOrValue:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the service
+                href:
+                    type: string
+                    description: Reference of the service
+                category:
+                    type: string
+                    description: Is it a customer facing or resource facing service
+                description:
+                    type: string
+                    description: Free-text description of the service
+                endDate:
+                    type: string
+                    description: Date when the service ends
+                    format: date-time
+                hasStarted:
+                    type: boolean
+                    description: "If TRUE, this Service has already been started"
+                isBundle:
+                    type: boolean
+                    description: "If true, the service is a ServiceBundle which regroup a service\
+            \ hierachy. If false, the service is a 'atomic' service (hierachy leaf)."
+                isServiceEnabled:
+                    type: boolean
+                    description: "If FALSE and hasStarted is FALSE, this particular Service\
+            \ has NOT been enabled for use - if FALSE and hasStarted is TRUE then\
+            \ the service has failed "
+                isStateful:
+                    type: boolean
+                    description: "If TRUE, this Service can be changed without affecting any\
+            \ other services"
+                name:
+                    type: string
+                    description: Name of the service
+                serviceDate:
+                    type: string
+                    description: Date when the service was created (whatever its status).
+                serviceType:
+                    type: string
+                    description: Business type of the service
+                startDate:
+                    type: string
+                    description: Date when the service starts
+                    format: date-time
+                startMode:
+                    type: string
+                    description: "This attribute is an enumerated integer that indicates how\
+            \ the Service is started, such as: 0: Unknown; 1: Automatically by the\
+            \ managed environment; 2: Automatically by the owning device; 3: Manually\
+            \ by the Provider of the Service; 4: Manually by a Customer of the Provider;\
+            \ 5: Any of the above"
+                feature:
+                    type: array
+                    description: 'A list of feature associated with this service '
+                    items:
+                        $ref: '#/components/schemas/Feature'
+                note:
+                    type: array
+                    description: A list of notes made on this service
+                    items:
+                        $ref: '#/components/schemas/Note'
+                place:
+                    type: array
+                    description: "A list of places (Place [*]). Used to define a place useful\
+            \ for the service (for example a geographical place whre the service is\
+            \ installed)"
+                    items:
+                        $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+                relatedEntity:
+                    type: array
+                    description: 'A list of related  entity in relationship with this service '
+                    items:
+                        $ref: '#/components/schemas/RelatedEntityRefOrValue'
+                relatedParty:
+                    type: array
+                    description: "A list of related party references (RelatedParty [*]). A related\
+            \ party defines party or party role linked to a specific entity"
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                serviceCharacteristic:
+                    type: array
+                    description: "A list of characteristics that characterize this service (ServiceCharacteristic\
+            \ [*]) "
+                    items:
+                        $ref: '#/components/schemas/Characteristic'
+                serviceOrderItem:
+                    type: array
+                    description: A list of service order items related to this service
+                    items:
+                        $ref: '#/components/schemas/RelatedServiceOrderItem'
+                serviceRelationship:
+                    type: array
+                    description: "A list of service relationships (ServiceRelationship [*]).\
+            \ Describes links with other service(s) in the inventory."
+                    items:
+                        $ref: '#/components/schemas/ServiceRelationship'
+                serviceSpecification:
+                    $ref: '#/components/schemas/ServiceSpecificationRef'
+                state:
+                    $ref: '#/components/schemas/ServiceStateType'
+                supportingResource:
+                    type: array
+                    description: "A list of supporting resources (SupportingResource [*]).Note:\
+            \ only Service of type RFS can be associated with Resources"
+                    items:
+                        $ref: '#/components/schemas/ResourceRef'
+                supportingService:
+                    type: array
+                    description: "A list of supporting services (SupportingService [*]). A collection\
+            \ of services that support this service (bundling, link CFS to RFS)"
+                    items:
+                        $ref: '#/components/schemas/ServiceRefOrValue'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: "A Service to be created defined by value or existing defined by\
+        \ reference. The polymorphic attributes @type, @schemaLocation & @referredType\
+        \ are related to the Service entity and not the RelatedServiceRefOrValue class\
+        \ itself"
+        ServiceRelationship:
+            required:
+                - relationshipType
+            type: object
+            properties:
+                relationshipType:
+                    type: string
+                service:
+                    $ref: '#/components/schemas/ServiceRefOrValue'
+                serviceRelationshipCharacteristic:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Characteristic'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+        ServiceSpecificationRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: unique identifier
+                href:
+                    type: string
+                    description: Hyperlink reference
+                    format: uri
+                name:
+                    type: string
+                    description: Name of the related entity.
+                version:
+                    type: string
+                    description: Service specification version
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: "Service specification reference: ServiceSpecification(s) required\
+        \ to realize a ProductSpecification."
+        ServiceStateType:
+            type: string
+            description: Valid values for the lifecycle state of the service
+            enum:
+                - feasibilityChecked
+                - designed
+                - reserved
+                - inactive
+                - active
+                - terminated
+        TaskStateType:
+            type: string
+            description: Possible values for the state of a task
+            enum:
+                - accepted
+                - terminatedWithError
+                - inProgress
+                - done
+        TerminationError:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the termination error
+                value:
+                    type: string
+                    description: "Text to describe the termination error - for example: Unable\
+            \ to proceed to qualification because incomplete information provided"
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: This indicates an error that caused a qualificationItem to be terminated.
+        TimePeriod:
+            type: object
+            properties:
+                endDateTime:
+                    type: string
+                    description: "End of the time period, using IETC-RFC-3339 format"
+                    format: date-time
+                    example: 1985-04-12T23:20:50.52Z
+                startDateTime:
+                    type: string
+                    description: "Start of the time period, using IETC-RFC-3339 format"
+                    format: date-time
+                    example: 1985-04-12T23:20:50.52Z
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: "A period of time, either as a deadline (endDateTime only) a startDateTime\
+        \ only, or both"
+        EventSubscription:
+            required:
+                - callback
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Id of the listener
+                callback:
+                    type: string
+                    description: The callback being registered.
+                query:
+                    type: string
+                    description: additional data to be passed
+            description: Sets the communication endpoint address the service instance must
+                use to deliver notification information
+        EventSubscriptionInput:
+            required:
+                - callback
+            type: object
+            properties:
+                callback:
+                    type: string
+                    description: The callback being registered.
+                query:
+                    type: string
+                    description: additional data to be passed
+            description: Sets the communication endpoint address the service instance must
+                use to deliver notification information
+        CheckServiceQualificationCreateEvent:
+            type: object
+            properties:
+                event:
+                    $ref: '#/components/schemas/CheckServiceQualificationCreateEventPayload'
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+            description: The notification data structure
+        CheckServiceQualificationCreateEventPayload:
+            type: object
+            properties:
+                checkServiceQualification:
+                    $ref: '#/components/schemas/CheckServiceQualification'
+            description: The event data structure
+        CheckServiceQualificationAttributeValueChangeEvent:
+            type: object
+            properties:
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+                fieldPath:
+                    type: string
+                    description: The path identifying the object field concerned by this notification.
+                event:
+                    $ref: '#/components/schemas/CheckServiceQualificationAttributeValueChangeEventPayload'
+            description: The notification data structure
+        CheckServiceQualificationAttributeValueChangeEventPayload:
+            type: object
+            properties:
+                checkServiceQualification:
+                    $ref: '#/components/schemas/CheckServiceQualification'
+            description: The event data structure
+        CheckServiceQualificationStateChangeEvent:
+            type: object
+            properties:
+                event:
+                    $ref: '#/components/schemas/CheckServiceQualificationStateChangeEventPayload'
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+            description: The notification data structure
+        CheckServiceQualificationStateChangeEventPayload:
+            type: object
+            properties:
+                checkServiceQualification:
+                    $ref: '#/components/schemas/CheckServiceQualification'
+            description: The event data structure
+        CheckServiceQualificationDeleteEvent:
+            type: object
+            properties:
+                event:
+                    $ref: '#/components/schemas/CheckServiceQualificationDeleteEventPayload'
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+            description: The notification data structure
+        CheckServiceQualificationDeleteEventPayload:
+            type: object
+            properties:
+                checkServiceQualification:
+                    $ref: '#/components/schemas/CheckServiceQualification'
+            description: The event data structure
+        CheckServiceQualificationInformationRequiredEvent:
+            type: object
+            properties:
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+                fieldPath:
+                    type: string
+                    description: The path identifying the object field concerned by this notification.
+                event:
+                    $ref: '#/components/schemas/CheckServiceQualificationInformationRequiredEventPayload'
+            description: The notification data structure
+        CheckServiceQualificationInformationRequiredEventPayload:
+            type: object
+            properties:
+                checkServiceQualification:
+                    $ref: '#/components/schemas/CheckServiceQualification'
+            description: The event data structure
+        QueryServiceQualificationCreateEvent:
+            type: object
+            properties:
+                event:
+                    $ref: '#/components/schemas/QueryServiceQualificationCreateEventPayload'
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+            description: The notification data structure
+        QueryServiceQualificationCreateEventPayload:
+            type: object
+            properties:
+                queryServiceQualification:
+                    $ref: '#/components/schemas/QueryServiceQualification'
+            description: The event data structure
+        QueryServiceQualificationStateChangeEvent:
+            type: object
+            properties:
+                event:
+                    $ref: '#/components/schemas/QueryServiceQualificationStateChangeEventPayload'
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+            description: The notification data structure
+        QueryServiceQualificationStateChangeEventPayload:
+            type: object
+            properties:
+                queryServiceQualification:
+                    $ref: '#/components/schemas/QueryServiceQualification'
+            description: The event data structure
+        QueryServiceQualificationDeleteEvent:
+            type: object
+            properties:
+                event:
+                    $ref: '#/components/schemas/QueryServiceQualificationDeleteEventPayload'
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+            description: The notification data structure
+        QueryServiceQualificationDeleteEventPayload:
+            type: object
+            properties:
+                queryServiceQualification:
+                    $ref: '#/components/schemas/QueryServiceQualification'
+            description: The event data structure
+        Error:
+            required:
+                - code
+                - reason
+            type: object
+            properties:
+                code:
+                    type: string
+                    description: "Application relevant detail, defined in the API or a common\
+            \ list."
+                reason:
+                    type: string
+                    description: Explanation of the reason for the error which can be shown
+                        to a client user.
+                message:
+                    type: string
+                    description: More details and corrective actions related to the error which
+                        can be shown to a client user.
+                status:
+                    type: string
+                    description: HTTP Error code extension
+                referenceError:
+                    type: string
+                    description: URI of documentation describing the error.
+                    format: uri
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class."
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name."
+            description: "Used when an API throws an Error, typically with a HTTP error\
+        \ response-code (3xx, 4xx, 5xx)"
+x-original-swagger-version: "2.0"

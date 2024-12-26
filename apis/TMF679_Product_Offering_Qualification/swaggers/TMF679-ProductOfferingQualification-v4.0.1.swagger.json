@@ -3,7 +3,7 @@
     "info": {
         "title": "Product Offering Qualification",
         "description": "**TMF API Reference : TMF 679 - Product Offering Qualification**\n\n**Release : 19.0 - June 2019**\n\nProduct Offering Qualification API provides Product Offering commercial eligibility. This API allows to\n\u2022 request a specific productOffering eligibility \n\u2022 look for productOffering eligibles (ot not) from a product category\n\u2022 look for productOffering eligibles (or not) from a productspec description.\nBecause the API allows describing product from the inventory, it is also possible to use it to retrieve productOffering available to complete existing product.\n\n**Product  Offering Qualification resource**\nA Task-based resouce to manage the qualification request. It has a status to monitor progress.\n\nProduct Offering Qualification API performs the following operations on product offerring qualification (POQ):\n- Retrieval of a POQ or a collection of POQ depending on filter criteria\n- Partial update of a POQ (including updating rules and for administration purpose)\n- Creation of a POQ (including default values and creation rules and for administration purpose)\n- Deletion of a POQ  (for administration purposes)\n- Notification of events on POQ.\n\nCopyright \u00a9 TM Forum 2019. All Rights Reserved\n\n",
-        "version": "99.0.0"
+        "version": "4.0.1"
     },
     "host": "serverRoot",
     "basePath": "/tmf-api/productOfferingQualification/v4/",

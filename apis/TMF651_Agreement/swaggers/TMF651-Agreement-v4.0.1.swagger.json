@@ -3,7 +3,7 @@
     "info": {
         "title": "Agreement Management",
         "description": "This is Swagger UI environment generated for the TMF Agreement Management specification",
-        "version": "4.0.0"
+        "version": "4.0.1"
     },
     "host": "serverRoot",
     "basePath": "/tmf-api/agreementManagement/v4/",
@@ -1482,6 +1482,21 @@
         }
     },
     "definitions": {
+        "Addressable": {
+            "type": "object",
+            "description": "Base schema for adressable entities",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "unique identifier"
+                },
+                "href": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Hyperlink reference"
+                }
+            }
+        },
         "Agreement": {
             "type": "object",
             "description": "An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.",
@@ -1587,7 +1602,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 }
             }
         },
@@ -1688,7 +1703,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 }
             }
         },
@@ -1785,7 +1800,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 }
             }
         },
@@ -1793,6 +1808,15 @@
             "type": "object",
             "description": "A business participant that is responsible for approving the agreement.",
             "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "unique identifier"
+                },
+                "href": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Hyperlink reference"
+                },
                 "date": {
                     "type": "string",
                     "format": "date-time",
@@ -1817,7 +1841,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 }
             }
         },
@@ -1825,6 +1849,15 @@
             "type": "object",
             "description": "A part of the agreement expressed in terms of a product offering and possibly including specific terms and conditions.",
             "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "unique identifier"
+                },
+                "href": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Hyperlink reference"
+                },
                 "product": {
                     "type": "array",
                     "items": {
@@ -1856,7 +1889,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 }
             }
         },
@@ -1866,11 +1899,12 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "Unique identifier of a related entity."
+                    "description": "unique identifier"
                 },
                 "href": {
                     "type": "string",
-                    "description": "Reference of the related entity."
+                    "format": "uri",
+                    "description": "Hyperlink reference"
                 },
                 "name": {
                     "type": "string",
@@ -1887,7 +1921,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 },
                 "@referredType": {
                     "type": "string",
@@ -1902,6 +1936,15 @@
             "type": "object",
             "description": "A characteristic quality or distinctive feature of an agreement.",
             "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "unique identifier"
+                },
+                "href": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Hyperlink reference"
+                },
                 "configurable": {
                     "type": "boolean",
                     "description": "If true, the Boolean indicates that the characteristic is configurable"
@@ -1939,7 +1982,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 }
             }
         },
@@ -1947,6 +1990,15 @@
             "type": "object",
             "description": "A number or text that can be assigned to an agreement specification characteristic.",
             "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "unique identifier"
+                },
+                "href": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Hyperlink reference"
+                },
                 "default": {
                     "type": "boolean",
                     "description": "Indicates if the value is the default value for a characteristic"
@@ -1986,7 +2038,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 }
             }
         },
@@ -2074,7 +2126,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 }
             }
         },
@@ -2154,7 +2206,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 }
             }
         },
@@ -2234,21 +2286,22 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 }
             }
         },
         "AgreementSpecificationRef": {
             "type": "object",
-            "description": "AgreementSpecification reference. An AgreementSpecification represents a template of an agreement that can be used when establishing partnerships.",
+            "description": "Agreement specification reference. An AgreementSpecification represents a template of an agreement that can be used when establishing partnerships.",
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "Unique identifier of a related entity."
+                    "description": "unique identifier"
                 },
                 "href": {
                     "type": "string",
-                    "description": "Reference of the related entity."
+                    "format": "uri",
+                    "description": "Hyperlink reference"
                 },
                 "description": {
                     "type": "string",
@@ -2269,7 +2322,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 },
                 "@referredType": {
                     "type": "string",
@@ -2286,11 +2339,12 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "Unique identifier of a related entity."
+                    "description": "unique identifier"
                 },
                 "href": {
                     "type": "string",
-                    "description": "Reference of the related entity."
+                    "format": "uri",
+                    "description": "Hyperlink reference"
                 },
                 "name": {
                     "type": "string",
@@ -2315,7 +2369,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 },
                 "@referredType": {
                     "type": "string",
@@ -2330,6 +2384,11 @@
                 "id": {
                     "type": "string",
                     "description": "Unique number assigned for reference."
+                },
+                "href": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Hyperlink reference"
                 },
                 "description": {
                     "type": "string",
@@ -2350,7 +2409,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 }
             }
         },
@@ -2360,22 +2419,28 @@
             "description": "Complements the description of an element (for instance a product) through video, pictures...",
             "properties": {
                 "id": {
+                    "example": "4aafacbd-11ff-4dc8-b445-305f2215715f",
                     "type": "string",
                     "description": "Unique identifier for this particular attachment"
                 },
                 "href": {
+                    "example": "http://host/Attachment/4aafacbd-11ff-4dc8-b445-305f2215715f",
                     "type": "string",
+                    "format": "uri",
                     "description": "URI for this Attachment"
                 },
                 "attachmentType": {
+                    "example": "video",
                     "type": "string",
                     "description": "Attachment type such as video, picture"
                 },
                 "content": {
                     "type": "string",
+                    "format": "base64",
                     "description": "The actual contents of the attachment object, if embedded, encoded as base64"
                 },
                 "description": {
+                    "example": "Photograph of the Product",
                     "type": "string",
                     "description": "A narrative text describing the content of the attachment"
                 },
@@ -2388,7 +2453,9 @@
                     "description": "The name of the attachment"
                 },
                 "url": {
+                    "example": "http://host/Content/4aafacbd-11ff-4dc8-b445-305f2215715f",
                     "type": "string",
+                    "format": "uri",
                     "description": "Uniform Resource Locator, is a web page address (a subset of URI)"
                 },
                 "size": {
@@ -2410,7 +2477,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 }
             }
         },
@@ -2424,6 +2491,7 @@
                 },
                 "href": {
                     "type": "string",
+                    "format": "uri",
                     "description": "URL serving as reference for the attachment resource"
                 },
                 "description": {
@@ -2436,6 +2504,7 @@
                 },
                 "url": {
                     "type": "string",
+                    "format": "uri",
                     "description": "Link to the attachment media/content"
                 },
                 "@baseType": {
@@ -2449,7 +2518,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 },
                 "@referredType": {
                     "type": "string",
@@ -2465,22 +2534,28 @@
             "description": "An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.",
             "properties": {
                 "id": {
+                    "example": "4aafacbd-11ff-4dc8-b445-305f2215715f",
                     "type": "string",
                     "description": "Unique identifier for this particular attachment"
                 },
                 "href": {
+                    "example": "http://host/Attachment/4aafacbd-11ff-4dc8-b445-305f2215715f",
                     "type": "string",
+                    "format": "uri",
                     "description": "URI for this Attachment"
                 },
                 "attachmentType": {
+                    "example": "video",
                     "type": "string",
                     "description": "Attachment type such as video, picture"
                 },
                 "content": {
                     "type": "string",
+                    "format": "base64",
                     "description": "The actual contents of the attachment object, if embedded, encoded as base64"
                 },
                 "description": {
+                    "example": "Photograph of the Product",
                     "type": "string",
                     "description": "A narrative text describing the content of the attachment"
                 },
@@ -2493,7 +2568,9 @@
                     "description": "The name of the attachment"
                 },
                 "url": {
+                    "example": "http://host/Content/4aafacbd-11ff-4dc8-b445-305f2215715f",
                     "type": "string",
+                    "format": "uri",
                     "description": "Uniform Resource Locator, is a web page address (a subset of URI)"
                 },
                 "size": {
@@ -2515,7 +2592,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 },
                 "@referredType": {
                     "type": "string",
@@ -2529,11 +2606,12 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "Unique identifier of a related entity."
+                    "description": "unique identifier"
                 },
                 "href": {
                     "type": "string",
-                    "description": "Reference of the related entity."
+                    "format": "uri",
+                    "description": "Hyperlink reference"
                 },
                 "name": {
                     "type": "string",
@@ -2554,7 +2632,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 },
                 "@referredType": {
                     "type": "string",
@@ -2573,6 +2651,10 @@
                 "value"
             ],
             "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier of the characteristic"
+                },
                 "name": {
                     "type": "string",
                     "description": "Name of the characteristic"
@@ -2580,6 +2662,12 @@
                 "valueType": {
                     "type": "string",
                     "description": "Data type of the value of the characteristic"
+                },
+                "characteristicRelationship": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CharacteristicRelationship"
+                    }
                 },
                 "value": {
                     "$ref": "#/definitions/Any",
@@ -2596,7 +2684,67 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
+                }
+            }
+        },
+        "CharacteristicRelationship": {
+            "type": "object",
+            "description": "Another Characteristic that is related to the current Characteristic;",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier of the characteristic"
+                },
+                "href": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Hyperlink reference"
+                },
+                "relationshipType": {
+                    "type": "string",
+                    "description": "The type of relationship"
+                },
+                "@baseType": {
+                    "type": "string",
+                    "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                    "type": "string",
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
+                }
+            }
+        },
+        "Entity": {
+            "type": "object",
+            "description": "Base entity schema for use in TMForum Open-APIs",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "unique identifier"
+                },
+                "href": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Hyperlink reference"
+                },
+                "@baseType": {
+                    "type": "string",
+                    "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                    "type": "string",
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 }
             }
         },
@@ -2606,11 +2754,12 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "Unique identifier of a related entity."
+                    "description": "unique identifier"
                 },
                 "href": {
                     "type": "string",
-                    "description": "Reference of the related entity."
+                    "format": "uri",
+                    "description": "Hyperlink reference"
                 },
                 "name": {
                     "type": "string",
@@ -2627,7 +2776,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 },
                 "@referredType": {
                     "type": "string",
@@ -2638,17 +2787,37 @@
                 "id"
             ]
         },
+        "Extensible": {
+            "type": "object",
+            "description": "Base Extensible schema for use in TMForum Open-APIs",
+            "properties": {
+                "@baseType": {
+                    "type": "string",
+                    "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                    "type": "string",
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
+                }
+            }
+        },
         "ProductOfferingRef": {
             "type": "object",
             "description": "ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.",
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "Unique identifier of a related entity."
+                    "description": "unique identifier"
                 },
                 "href": {
                     "type": "string",
-                    "description": "Reference of the related entity."
+                    "format": "uri",
+                    "description": "Hyperlink reference"
                 },
                 "name": {
                     "type": "string",
@@ -2665,7 +2834,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 },
                 "@referredType": {
                     "type": "string",
@@ -2681,11 +2850,12 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "Unique identifier of a related entity."
+                    "description": "unique identifier"
                 },
                 "href": {
                     "type": "string",
-                    "description": "Reference of the related entity."
+                    "format": "uri",
+                    "description": "Hyperlink reference"
                 },
                 "name": {
                     "type": "string",
@@ -2702,7 +2872,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 },
                 "@referredType": {
                     "type": "string",
@@ -2740,11 +2910,12 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "Unique identifier of a related entity."
+                    "description": "unique identifier"
                 },
                 "href": {
                     "type": "string",
-                    "description": "Reference of the related entity."
+                    "format": "uri",
+                    "description": "Hyperlink reference"
                 },
                 "name": {
                     "type": "string",
@@ -2765,7 +2936,7 @@
                 },
                 "@type": {
                     "type": "string",
-                    "description": "When sub-classing, this defines the sub-class entity name"
+                    "description": "When sub-classing, this defines the sub-class Extensible name"
                 },
                 "@referredType": {
                     "type": "string",
@@ -2778,14 +2949,16 @@
             "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both",
             "properties": {
                 "endDateTime": {
+                    "example": "1985-04-12T23:20:50.52Z",
                     "type": "string",
                     "format": "date-time",
                     "description": "End of the time period, using IETC-RFC-3339 format"
                 },
                 "startDateTime": {
+                    "example": "1985-04-12T23:20:50.52Z",
                     "type": "string",
                     "format": "date-time",
-                    "description": "Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end"
+                    "description": "Start of the time period, using IETC-RFC-3339 format"
                 }
             }
         },
@@ -2832,13 +3005,9 @@
             "type": "object",
             "description": "The notification data structure",
             "properties": {
-                "id": {
-                    "type": "string",
-                    "description": "Identifier of the resource involved in the event"
-                },
-                "href": {
-                    "type": "string",
-                    "description": "Reference of the resource involved in the event"
+                "event": {
+                    "description": "The event payload linked to the involved resource object",
+                    "$ref": "#/definitions/AgreementCreateEventPayload"
                 },
                 "eventId": {
                     "type": "string",
@@ -2867,7 +3036,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "An explanatory of the event."
+                    "description": "An explnatory of the event."
                 },
                 "priority": {
                     "type": "string",
@@ -2877,10 +3046,6 @@
                     "type": "string",
                     "format": "date-time",
                     "description": "The time the event occured."
-                },
-                "event": {
-                    "description": "The event payload linked to the involved resource object",
-                    "$ref": "#/definitions/AgreementCreateEventPayload"
                 }
             }
         },
@@ -2925,7 +3090,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "An explanatory of the event."
+                    "description": "An explnatory of the event."
                 },
                 "priority": {
                     "type": "string",
@@ -2960,13 +3125,9 @@
             "type": "object",
             "description": "The notification data structure",
             "properties": {
-                "id": {
-                    "type": "string",
-                    "description": "Identifier of the resource involved in the event"
-                },
-                "href": {
-                    "type": "string",
-                    "description": "Reference of the resource involved in the event"
+                "event": {
+                    "description": "The event payload linked to the involved resource object",
+                    "$ref": "#/definitions/AgreementStateChangeEventPayload"
                 },
                 "eventId": {
                     "type": "string",
@@ -2995,7 +3156,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "An explanatory of the event."
+                    "description": "An explnatory of the event."
                 },
                 "priority": {
                     "type": "string",
@@ -3005,10 +3166,6 @@
                     "type": "string",
                     "format": "date-time",
                     "description": "The time the event occured."
-                },
-                "event": {
-                    "description": "The event payload linked to the involved resource object",
-                    "$ref": "#/definitions/AgreementStateChangeEventPayload"
                 }
             }
         },
@@ -3026,13 +3183,9 @@
             "type": "object",
             "description": "The notification data structure",
             "properties": {
-                "id": {
-                    "type": "string",
-                    "description": "Identifier of the resource involved in the event"
-                },
-                "href": {
-                    "type": "string",
-                    "description": "Reference of the resource involved in the event"
+                "event": {
+                    "description": "The event payload linked to the involved resource object",
+                    "$ref": "#/definitions/AgreementDeleteEventPayload"
                 },
                 "eventId": {
                     "type": "string",
@@ -3061,7 +3214,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "An explanatory of the event."
+                    "description": "An explnatory of the event."
                 },
                 "priority": {
                     "type": "string",
@@ -3071,10 +3224,6 @@
                     "type": "string",
                     "format": "date-time",
                     "description": "The time the event occured."
-                },
-                "event": {
-                    "description": "The event payload linked to the involved resource object",
-                    "$ref": "#/definitions/AgreementDeleteEventPayload"
                 }
             }
         },
@@ -3092,13 +3241,9 @@
             "type": "object",
             "description": "The notification data structure",
             "properties": {
-                "id": {
-                    "type": "string",
-                    "description": "Identifier of the resource involved in the event"
-                },
-                "href": {
-                    "type": "string",
-                    "description": "Reference of the resource involved in the event"
+                "event": {
+                    "description": "The event payload linked to the involved resource object",
+                    "$ref": "#/definitions/AgreementSpecificationCreateEventPayload"
                 },
                 "eventId": {
                     "type": "string",
@@ -3127,7 +3272,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "An explanatory of the event."
+                    "description": "An explnatory of the event."
                 },
                 "priority": {
                     "type": "string",
@@ -3137,10 +3282,6 @@
                     "type": "string",
                     "format": "date-time",
                     "description": "The time the event occured."
-                },
-                "event": {
-                    "description": "The event payload linked to the involved resource object",
-                    "$ref": "#/definitions/AgreementSpecificationCreateEventPayload"
                 }
             }
         },
@@ -3185,7 +3326,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "An explanatory of the event."
+                    "description": "An explnatory of the event."
                 },
                 "priority": {
                     "type": "string",
@@ -3220,13 +3361,9 @@
             "type": "object",
             "description": "The notification data structure",
             "properties": {
-                "id": {
-                    "type": "string",
-                    "description": "Identifier of the resource involved in the event"
-                },
-                "href": {
-                    "type": "string",
-                    "description": "Reference of the resource involved in the event"
+                "event": {
+                    "description": "The event payload linked to the involved resource object",
+                    "$ref": "#/definitions/AgreementSpecificationStateChangeEventPayload"
                 },
                 "eventId": {
                     "type": "string",
@@ -3255,7 +3392,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "An explanatory of the event."
+                    "description": "An explnatory of the event."
                 },
                 "priority": {
                     "type": "string",
@@ -3265,10 +3402,6 @@
                     "type": "string",
                     "format": "date-time",
                     "description": "The time the event occured."
-                },
-                "event": {
-                    "description": "The event payload linked to the involved resource object",
-                    "$ref": "#/definitions/AgreementSpecificationStateChangeEventPayload"
                 }
             }
         },
@@ -3286,13 +3419,9 @@
             "type": "object",
             "description": "The notification data structure",
             "properties": {
-                "id": {
-                    "type": "string",
-                    "description": "Identifier of the resource involved in the event"
-                },
-                "href": {
-                    "type": "string",
-                    "description": "Reference of the resource involved in the event"
+                "event": {
+                    "description": "The event payload linked to the involved resource object",
+                    "$ref": "#/definitions/AgreementSpecificationDeleteEventPayload"
                 },
                 "eventId": {
                     "type": "string",
@@ -3321,7 +3450,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "An explanatory of the event."
+                    "description": "An explnatory of the event."
                 },
                 "priority": {
                     "type": "string",
@@ -3331,10 +3460,6 @@
                     "type": "string",
                     "format": "date-time",
                     "description": "The time the event occured."
-                },
-                "event": {
-                    "description": "The event payload linked to the involved resource object",
-                    "$ref": "#/definitions/AgreementSpecificationDeleteEventPayload"
                 }
             }
         },

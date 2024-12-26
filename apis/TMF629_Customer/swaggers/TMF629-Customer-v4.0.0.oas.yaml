@@ -1,0 +1,1575 @@
+openapi: 3.0.1
+info:
+    title: Customer Management
+    description: This is Swagger UI environment generated for the TMF Customer Management
+        specification
+    version: 4.0.0
+servers:
+    -   url: https://serverRoot/tmf-api/customerManagement/v4/
+tags:
+    -   name: customer
+    -   name: notification listeners (client side)
+    -   name: events subscription
+paths:
+    /customer:
+        get:
+            tags:
+                - customer
+            summary: List or find Customer objects
+            description: This operation list or find Customer entities
+            operationId: listCustomer
+            parameters:
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to be provided in response
+                    schema:
+                        type: string
+                -   name: offset
+                    in: query
+                    description: Requested index for start of resources to be provided in response
+                    schema:
+                        type: integer
+                -   name: limit
+                    in: query
+                    description: Requested number of resources to be provided in response
+                    schema:
+                        type: integer
+            responses:
+                "200":
+                    description: Success
+                    headers:
+                        X-Total-Count:
+                            description: Total number of items matching criteria
+                            schema:
+                                type: integer
+                        X-Result-Count:
+                            description: Actual number of items returned in the response body
+                            schema:
+                                type: integer
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Customer'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        post:
+            tags:
+                - customer
+            summary: Creates a Customer
+            description: This operation creates a Customer entity.
+            operationId: createCustomer
+            requestBody:
+                description: The Customer to be created
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/Customer_Create'
+                required: true
+            responses:
+                "201":
+                    description: Created
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Customer'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: customer
+    /customer/{id}:
+        get:
+            tags:
+                - customer
+            summary: Retrieves a Customer by ID
+            description: This operation retrieves a Customer entity. Attribute selection
+                is enabled for all first level attributes.
+            operationId: retrieveCustomer
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the Customer
+                    required: true
+                    schema:
+                        type: string
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to provide in response
+                    schema:
+                        type: string
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Customer'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        delete:
+            tags:
+                - customer
+            summary: Deletes a Customer
+            description: This operation deletes a Customer entity.
+            operationId: deleteCustomer
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the Customer
+                    required: true
+                    schema:
+                        type: string
+            responses:
+                "204":
+                    description: Deleted
+                    content: { }
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        patch:
+            tags:
+                - customer
+            summary: Updates partially a Customer
+            description: This operation updates partially a Customer entity.
+            operationId: patchCustomer
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the Customer
+                    required: true
+                    schema:
+                        type: string
+            requestBody:
+                description: The Customer to be updated
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/Customer_Update'
+                required: true
+            responses:
+                "200":
+                    description: Updated
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Customer'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: customer
+    /hub:
+        post:
+            tags:
+                - events subscription
+            summary: Register a listener
+            description: "Sets the communication endpoint address the service instance must\
+        \ use to deliver information about its health state, execution state, failures\
+        \ and metrics."
+            operationId: registerListener
+            requestBody:
+                description: Data containing the callback endpoint to deliver the information
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/EventSubscriptionInput'
+                required: true
+            responses:
+                "201":
+                    description: Subscribed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /hub/{id}:
+        delete:
+            tags:
+                - events subscription
+            summary: Unregister a listener
+            description: "Resets the communication endpoint address the service instance\
+        \ must use to deliver information about its health state, execution state,\
+        \ failures and metrics."
+            operationId: unregisterListener
+            parameters:
+                -   name: id
+                    in: path
+                    description: The id of the registered listener
+                    required: true
+                    schema:
+                        type: string
+            responses:
+                "204":
+                    description: Deleted
+                    content: { }
+                "400":
+                    description: Bad request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /listener/customerCreateEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity CustomerCreateEvent
+            description: Example of a client listener for receiving the notification CustomerCreateEvent
+            operationId: listenToCustomerCreateEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/CustomerCreateEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /listener/customerAttributeValueChangeEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity CustomerAttributeValueChangeEvent
+            description: Example of a client listener for receiving the notification CustomerAttributeValueChangeEvent
+            operationId: listenToCustomerAttributeValueChangeEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/CustomerAttributeValueChangeEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /listener/customerStateChangeEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity CustomerStateChangeEvent
+            description: Example of a client listener for receiving the notification CustomerStateChangeEvent
+            operationId: listenToCustomerStateChangeEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/CustomerStateChangeEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /listener/customerDeleteEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity CustomerDeleteEvent
+            description: Example of a client listener for receiving the notification CustomerDeleteEvent
+            operationId: listenToCustomerDeleteEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/CustomerDeleteEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+components:
+    schemas:
+        AccountRef:
+            required:
+                - name
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the account
+                href:
+                    type: string
+                    description: Reference of the account
+                description:
+                    type: string
+                    description: Detailed description of the account
+                name:
+                    type: string
+                    description: Name of the account
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: Account reference. A account may be a party account or a financial
+                account.
+        Addressable:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: unique identifier
+                href:
+                    type: string
+                    description: Hyperlink reference
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Base schema for adressable entities
+        AgreementRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: unique identifier
+                href:
+                    type: string
+                    description: Hyperlink reference
+                name:
+                    type: string
+                    description: Name of the agreement
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: "Agreement reference. An agreement represents a contract or arrangement,\
+        \ either written or verbal and sometimes enforceable by law, such as a service\
+        \ level agreement or a customer price agreement. An agreement involves a number\
+        \ of other business entities, such as products, services, and resources and/or\
+        \ their specifications."
+        Any:
+            type: object
+        Characteristic:
+            required:
+                - name
+                - value
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the characteristic
+                name:
+                    type: string
+                    description: Name of the characteristic
+                valueType:
+                    type: string
+                    description: Data type of the value of the characteristic
+                characteristicRelationship:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/CharacteristicRelationship'
+                value:
+                    $ref: '#/components/schemas/Any'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+            description: Describes a given characteristic of an object or entity through
+                a name/value pair.
+        CharacteristicRelationship:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the characteristic
+                relationshipType:
+                    type: string
+                    description: The type of relationship
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Another Characteristic that is related to the current Characteristic;
+        ContactMedium:
+            required:
+                - characteristic
+                - mediumType
+            type: object
+            properties:
+                mediumType:
+                    type: string
+                    description: "Type of the contact medium, such as: email address, telephone\
+            \ number, postal address"
+                preferred:
+                    type: boolean
+                    description: "If true, indicates that is the preferred contact medium"
+                characteristic:
+                    $ref: '#/components/schemas/MediumCharacteristic'
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Indicates the contact medium that could be used to contact the
+                party.
+        CreditProfile:
+            required:
+                - creditProfileDate
+                - validFor
+            type: object
+            properties:
+                creditProfileDate:
+                    type: string
+                    description: The date the profile was established
+                    format: date-time
+                creditRiskRating:
+                    type: integer
+                    description: This is an integer whose value is used to rate the risk
+                creditScore:
+                    type: integer
+                    description: A measure of a person or organizations creditworthiness calculated
+                        on the basis of a combination of factors such as their income and credit
+                        history
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: "Credit profile for the party (containing credit scoring, ...).\
+        \ By default only the current credit profile  is retrieved. It can be used\
+        \ as a list to give the party credit profiles history, the first one in the\
+        \ list will be the current one."
+        Customer:
+            required:
+                - engagedParty
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier for Customers
+                href:
+                    type: string
+                    description: Url used to reference the customer.
+                name:
+                    type: string
+                    description: "A word, term, or phrase by which the Customer is known and\
+            \ distinguished from other Customers."
+                status:
+                    type: string
+                    description: Used to track the lifecycle status of the customer.
+                statusReason:
+                    type: string
+                    description: "A string providing an explanation on the value of the status\
+            \ lifecycle. For instance if the status is Rejected, statusReason will\
+            \ provide the reason for rejection."
+                account:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/AccountRef'
+                agreement:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/AgreementRef'
+                characteristic:
+                    type: array
+                    description: Describes the characteristic of a customer.
+                    items:
+                        $ref: '#/components/schemas/Characteristic'
+                contactMedium:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ContactMedium'
+                creditProfile:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/CreditProfile'
+                engagedParty:
+                    $ref: '#/components/schemas/RelatedParty'
+                paymentMethod:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/PaymentMethodRef'
+                relatedParty:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+        Customer_Create:
+            required:
+                - engagedParty
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: "A word, term, or phrase by which the Customer is known and\
+            \ distinguished from other Customers."
+                status:
+                    type: string
+                    description: Used to track the lifecycle status of the customer.
+                statusReason:
+                    type: string
+                    description: "A string providing an explanation on the value of the status\
+            \ lifecycle. For instance if the status is Rejected, statusReason will\
+            \ provide the reason for rejection."
+                account:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/AccountRef'
+                agreement:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/AgreementRef'
+                characteristic:
+                    type: array
+                    description: Describes the characteristic of a customer.
+                    items:
+                        $ref: '#/components/schemas/Characteristic'
+                contactMedium:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ContactMedium'
+                creditProfile:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/CreditProfile'
+                engagedParty:
+                    $ref: '#/components/schemas/RelatedParty'
+                paymentMethod:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/PaymentMethodRef'
+                relatedParty:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: |2-
+            
+              Skipped properties: id,href
+        Customer_Update:
+            required:
+                - engagedParty
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: "A word, term, or phrase by which the Customer is known and\
+            \ distinguished from other Customers."
+                status:
+                    type: string
+                    description: Used to track the lifecycle status of the customer.
+                statusReason:
+                    type: string
+                    description: "A string providing an explanation on the value of the status\
+            \ lifecycle. For instance if the status is Rejected, statusReason will\
+            \ provide the reason for rejection."
+                account:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/AccountRef'
+                agreement:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/AgreementRef'
+                characteristic:
+                    type: array
+                    description: Describes the characteristic of a customer.
+                    items:
+                        $ref: '#/components/schemas/Characteristic'
+                contactMedium:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ContactMedium'
+                creditProfile:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/CreditProfile'
+                engagedParty:
+                    $ref: '#/components/schemas/RelatedParty'
+                paymentMethod:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/PaymentMethodRef'
+                relatedParty:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: |2-
+            
+              Skipped properties: id,href
+        EntityRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: unique identifier
+                href:
+                    type: string
+                    description: Hyperlink reference
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: Entity reference schema to be use for all entityRef class.
+        Extensible:
+            type: object
+            properties:
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+            description: Base Extensible schema for use in TMForum Open-APIs
+        MediumCharacteristic:
+            type: object
+            properties:
+                city:
+                    type: string
+                    description: The city
+                contactType:
+                    type: string
+                    description: "The type of contact, for example: phone number such as mobile,\
+            \ fixed home, fixed office. postal address such as shipping instalation…"
+                country:
+                    type: string
+                    description: The country
+                emailAddress:
+                    type: string
+                    description: Full email address in standard format
+                faxNumber:
+                    type: string
+                    description: The fax number of the contact
+                phoneNumber:
+                    type: string
+                    description: The primary phone number of the contact
+                postCode:
+                    type: string
+                    description: Postcode
+                socialNetworkId:
+                    type: string
+                    description: Identifier as a member of a social network
+                stateOrProvince:
+                    type: string
+                    description: State or province
+                street1:
+                    type: string
+                    description: Describes the street
+                street2:
+                    type: string
+                    description: Complementary street description
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Describes the contact medium characteristics that could be used
+                to contact a party (an individual or an organization)
+        PaymentMethodRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: unique identifier
+                href:
+                    type: string
+                    description: Hyperlink reference
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: PaymentMethod reference. A payment method defines a specific mean
+                of payment (e.g direct debit).
+        RelatedParty:
+            required:
+                - '@referredType'
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: unique identifier
+                href:
+                    type: string
+                    description: Hyperlink reference
+                name:
+                    type: string
+                    description: Name of the related entity.
+                role:
+                    type: string
+                    description: Role played by the related party
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                    example: ResourceSpecification
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                    example: https://mycsp.com:8080/tmf-api/schema/Resource/LogicalResourceSpecification.schema.json
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class Extensible name"
+                    example: LogicalResourceSpecification
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: Related Entity reference. A related party defines party or party
+                role linked to a specific entity.
+        TimePeriod:
+            type: object
+            properties:
+                endDateTime:
+                    type: string
+                    description: "End of the time period, using IETC-RFC-3339 format"
+                    format: date-time
+                    example: 1985-04-12T23:20:50.52Z
+                startDateTime:
+                    type: string
+                    description: "Start of the time period, using IETC-RFC-3339 format. If you\
+            \ define a start, you must also define an end"
+                    format: date-time
+                    example: 1985-04-12T23:20:50.52Z
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: "A period of time, either as a deadline (endDateTime only) a startDateTime\
+        \ only, or both"
+        EventSubscription:
+            required:
+                - callback
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Id of the listener
+                callback:
+                    type: string
+                    description: The callback being registered.
+                query:
+                    type: string
+                    description: additional data to be passed
+            description: Sets the communication endpoint address the service instance must
+                use to deliver notification information
+        EventSubscriptionInput:
+            required:
+                - callback
+            type: object
+            properties:
+                callback:
+                    type: string
+                    description: The callback being registered.
+                query:
+                    type: string
+                    description: additional data to be passed
+            description: Sets the communication endpoint address the service instance must
+                use to deliver notification information
+        CustomerCreateEvent:
+            type: object
+            properties:
+                event:
+                    $ref: '#/components/schemas/CustomerCreateEventPayload'
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+            description: The notification data structure
+        CustomerCreateEventPayload:
+            type: object
+            properties:
+                customer:
+                    $ref: '#/components/schemas/Customer'
+            description: The event data structure
+        CustomerAttributeValueChangeEvent:
+            type: object
+            properties:
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+                fieldPath:
+                    type: string
+                    description: The path identifying the object field concerned by this notification.
+                event:
+                    $ref: '#/components/schemas/CustomerAttributeValueChangeEventPayload'
+            description: The notification data structure
+        CustomerAttributeValueChangeEventPayload:
+            type: object
+            properties:
+                customer:
+                    $ref: '#/components/schemas/Customer'
+            description: The event data structure
+        CustomerStateChangeEvent:
+            type: object
+            properties:
+                event:
+                    $ref: '#/components/schemas/CustomerStateChangeEventPayload'
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+            description: The notification data structure
+        CustomerStateChangeEventPayload:
+            type: object
+            properties:
+                customer:
+                    $ref: '#/components/schemas/Customer'
+            description: The event data structure
+        CustomerDeleteEvent:
+            type: object
+            properties:
+                event:
+                    $ref: '#/components/schemas/CustomerDeleteEventPayload'
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+            description: The notification data structure
+        CustomerDeleteEventPayload:
+            type: object
+            properties:
+                customer:
+                    $ref: '#/components/schemas/Customer'
+            description: The event data structure
+        Error:
+            required:
+                - code
+                - reason
+            type: object
+            properties:
+                code:
+                    type: string
+                    description: "Application relevant detail, defined in the API or a common\
+            \ list."
+                reason:
+                    type: string
+                    description: Explanation of the reason for the error which can be shown
+                        to a client user.
+                message:
+                    type: string
+                    description: More details and corrective actions related to the error which
+                        can be shown to a client user.
+                status:
+                    type: string
+                    description: HTTP Error code extension
+                referenceError:
+                    type: string
+                    description: URI of documentation describing the error.
+                    format: uri
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class."
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name."
+            description: "Used when an API throws an Error, typically with a HTTP error\
+        \ response-code (3xx, 4xx, 5xx)"
+x-original-swagger-version: "2.0"
