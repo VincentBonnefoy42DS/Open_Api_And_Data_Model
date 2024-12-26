@@ -1,0 +1,1709 @@
+openapi: 3.0.1
+info:
+    title: API Sales
+    description: "## TMF API Reference : TMF 699 - Sales \n\nThis API provides interfaces\
+    \ for Sales Lead, Sales Opportunity, Sales Quote and the other management capabilities\
+    \ to support the sales activities to build relationship with the prospect customer\
+    \ who could be a person or organization that has an interest in the goods and/or\
+    \ services and possibly become the actual customers with one or more Subscriptions."
+    version: 4.0.0
+servers:
+    -   url: https://serverRoot/tmf-api/sales/v4/
+tags:
+    -   name: salesLead
+    -   name: notification listeners (client side)
+    -   name: events subscription
+paths:
+    /salesLead:
+        get:
+            tags:
+                - salesLead
+            summary: List or find SalesLead objects
+            description: This operation list or find SalesLead entities
+            operationId: listSalesLead
+            parameters:
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to be provided in response
+                    schema:
+                        type: string
+                -   name: offset
+                    in: query
+                    description: Requested index for start of resources to be provided in response
+                    schema:
+                        type: integer
+                -   name: limit
+                    in: query
+                    description: Requested number of resources to be provided in response
+                    schema:
+                        type: integer
+            responses:
+                "200":
+                    description: Success
+                    headers:
+                        X-Total-Count:
+                            description: Total number of items matching criteria
+                            schema:
+                                type: integer
+                        X-Result-Count:
+                            description: Actual number of items returned in the response body
+                            schema:
+                                type: integer
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/SalesLead'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        post:
+            tags:
+                - salesLead
+            summary: Creates a SalesLead
+            description: This operation creates a SalesLead entity.
+            operationId: createSalesLead
+            requestBody:
+                description: The SalesLead to be created
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/SalesLead_Create'
+                required: true
+            responses:
+                "201":
+                    description: Created
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/SalesLead'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: salesLead
+    /salesLead/{id}:
+        get:
+            tags:
+                - salesLead
+            summary: Retrieves a SalesLead by ID
+            description: This operation retrieves a SalesLead entity. Attribute selection
+                is enabled for all first level attributes.
+            operationId: retrieveSalesLead
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the SalesLead
+                    required: true
+                    schema:
+                        type: string
+                -   name: fields
+                    in: query
+                    description: Comma-separated properties to provide in response
+                    schema:
+                        type: string
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/SalesLead'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        delete:
+            tags:
+                - salesLead
+            summary: Deletes a SalesLead
+            description: This operation deletes a SalesLead entity.
+            operationId: deleteSalesLead
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the SalesLead
+                    required: true
+                    schema:
+                        type: string
+            responses:
+                "204":
+                    description: Deleted
+                    content: { }
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        patch:
+            tags:
+                - salesLead
+            summary: Updates partially a SalesLead
+            description: This operation updates partially a SalesLead entity.
+            operationId: patchSalesLead
+            parameters:
+                -   name: id
+                    in: path
+                    description: Identifier of the SalesLead
+                    required: true
+                    schema:
+                        type: string
+            requestBody:
+                description: The SalesLead to be updated
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/SalesLead_Update'
+                required: true
+            responses:
+                "200":
+                    description: Updated
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/SalesLead'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: salesLead
+    /hub:
+        post:
+            tags:
+                - events subscription
+            summary: Register a listener
+            description: "Sets the communication endpoint address the service instance must\
+        \ use to deliver information about its health state, execution state, failures\
+        \ and metrics."
+            operationId: registerListener
+            requestBody:
+                description: Data containing the callback endpoint to deliver the information
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/EventSubscriptionInput'
+                required: true
+            responses:
+                "201":
+                    description: Subscribed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /hub/{id}:
+        delete:
+            tags:
+                - events subscription
+            summary: Unregister a listener
+            description: "Resets the communication endpoint address the service instance\
+        \ must use to deliver information about its health state, execution state,\
+        \ failures and metrics."
+            operationId: unregisterListener
+            parameters:
+                -   name: id
+                    in: path
+                    description: The id of the registered listener
+                    required: true
+                    schema:
+                        type: string
+            responses:
+                "204":
+                    description: Deleted
+                    content: { }
+                "400":
+                    description: Bad request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /listener/salesLeadCreateEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity SalesLeadCreateEvent
+            description: Example of a client listener for receiving the notification SalesLeadCreateEvent
+            operationId: listenToSalesLeadCreateEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/SalesLeadCreateEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /listener/salesLeadAttributeValueChangeEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity SalesLeadAttributeValueChangeEvent
+            description: Example of a client listener for receiving the notification SalesLeadAttributeValueChangeEvent
+            operationId: listenToSalesLeadAttributeValueChangeEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/SalesLeadAttributeValueChangeEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /listener/salesLeadStateChangeEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity SalesLeadStateChangeEvent
+            description: Example of a client listener for receiving the notification SalesLeadStateChangeEvent
+            operationId: listenToSalesLeadStateChangeEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/SalesLeadStateChangeEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+    /listener/salesLeadDeleteEvent:
+        post:
+            tags:
+                - notification listeners (client side)
+            summary: Client listener for entity SalesLeadDeleteEvent
+            description: Example of a client listener for receiving the notification SalesLeadDeleteEvent
+            operationId: listenToSalesLeadDeleteEvent
+            requestBody:
+                description: The event data
+                content:
+                    application/json;charset=utf-8:
+                        schema:
+                            $ref: '#/components/schemas/SalesLeadDeleteEvent'
+                required: true
+            responses:
+                "201":
+                    description: Notified
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/EventSubscription'
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "404":
+                    description: Not Found
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "405":
+                    description: Method Not allowed
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "409":
+                    description: Conflict
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json;charset=utf-8:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+            x-codegen-request-body-name: data
+components:
+    schemas:
+        CategoryRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                version:
+                    type: string
+                    description: Category version
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: The category for grouping recommendations
+        ChannelRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the channel.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: "The channel to which the resource reference to. e.g. channel for\
+        \ selling product offerings, channel for opening a trouble ticket etc.."
+        ContactMedium:
+            type: object
+            properties:
+                mediumType:
+                    type: string
+                    description: "Type of the contact medium, such as: email address, telephone\
+            \ number, postal address"
+                preferred:
+                    type: boolean
+                    description: "If true, indicates that is the preferred contact medium"
+                characteristic:
+                    $ref: '#/components/schemas/MediumCharacteristic'
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Indicates the contact medium that could be used to contact the
+                party.
+        EntityRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: Entity reference schema to be use for all entityRef class.
+        MarketSegmentRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the market segment
+                href:
+                    type: string
+                    description: Reference of the market segment
+                name:
+                    type: string
+                    description: Name of the market segment
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: (Class) type of the referred market segment
+            description: "provides references to the corresponding market segment as target\
+        \ of product offerings. A market segment is grouping of Parties, GeographicAreas,\
+        \ SalesChannels, and so forth."
+        MarketingCampaignRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: MarketingCampaign reference. Marketing campaign represents the
+                carrier-initiated marketing activity which aims at the better recognition
+                about its brand and offerings by the market
+        MediumCharacteristic:
+            type: object
+            properties:
+                city:
+                    type: string
+                    description: The city
+                contactType:
+                    type: string
+                    description: "The type of contact, for example: phone number such as mobile,\
+            \ fixed home, fixed office. postal address such as shipping instalation…"
+                country:
+                    type: string
+                    description: The country
+                emailAddress:
+                    type: string
+                    description: Full email address in standard format
+                faxNumber:
+                    type: string
+                    description: The fax number of the contact
+                phoneNumber:
+                    type: string
+                    description: The primary phone number of the contact
+                postCode:
+                    type: string
+                    description: Postcode
+                socialNetworkId:
+                    type: string
+                    description: Identifier as a member of a social network
+                stateOrProvince:
+                    type: string
+                    description: State or province
+                street1:
+                    type: string
+                    description: Describes the street
+                street2:
+                    type: string
+                    description: Complementary street description
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Describes the contact medium characteristics that could be used
+                to contact a party (an individual or an organization)
+        Money:
+            type: object
+            properties:
+                unit:
+                    type: string
+                    description: Currency (ISO4217 norm uses 3 letters to define the currency)
+                value:
+                    type: number
+                    description: A positive floating point number
+                    format: float
+            description: A base / value business entity used to represent money
+        Note:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: "Identifier of the note within its containing entity (may or\
+            \ may not be globally unique, depending on provider implementation)"
+                author:
+                    type: string
+                    description: Author of the note
+                date:
+                    type: string
+                    description: Date of the note
+                    format: date-time
+                text:
+                    type: string
+                    description: Text of the note
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: Extra information about a given entity
+        ProductOfferingRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: "ProductOffering reference. A product offering represents entities\
+        \ that are orderable from the provider of the catalog, this resource includes\
+        \ pricing information."
+        ProductRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+        ProductSpecificationRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                version:
+                    type: string
+                    description: Version of the product specification
+                targetProductSchema:
+                    $ref: '#/components/schemas/TargetProductSchema'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: "Product specification reference: A ProductSpecification is a detailed\
+        \ description of a tangible or intangible object made available externally\
+        \ in the form of a ProductOffering to customers or other parties playing a\
+        \ party role."
+        RelatedParty:
+            required:
+                - '@referredType'
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                role:
+                    type: string
+                    description: Role played by the related party
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: Related Entity reference. A related party defines party or party
+                role linked to a specific entity.
+        SalesLead:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of the salesLead
+                href:
+                    type: string
+                    description: Reference of the salesLead
+                creationDate:
+                    type: string
+                    description: Date and time of the salesLead creation
+                    format: date-time
+                description:
+                    type: string
+                    description: Unique description of the salesLead
+                name:
+                    type: string
+                    description: Name of the salesLead
+                rating:
+                    type: string
+                    description: "Identifies the potential of a salesLead for becoming a sale.\
+            \ Usual ratings for qualified leads are: hot, warm, cold."
+                referredDate:
+                    type: string
+                    description: "Date when the prospect information was received (for example,\
+            \ from a trade show)."
+                    format: date-time
+                statusChangeDate:
+                    type: string
+                    description: Date and time of the last update
+                    format: date-time
+                statusChangeReason:
+                    type: string
+                    description: Reason why the status has changed
+                type:
+                    type: string
+                    description: Indicates the nature of the salesLead
+                category:
+                    $ref: '#/components/schemas/CategoryRef'
+                channel:
+                    $ref: '#/components/schemas/ChannelRef'
+                estimatedRevenue:
+                    $ref: '#/components/schemas/Money'
+                marketSegment:
+                    $ref: '#/components/schemas/MarketSegmentRef'
+                marketingCampaign:
+                    $ref: '#/components/schemas/MarketingCampaignRef'
+                note:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Note'
+                priority:
+                    $ref: '#/components/schemas/SalesLeadPriorityType'
+                product:
+                    $ref: '#/components/schemas/ProductRef'
+                productOffering:
+                    $ref: '#/components/schemas/ProductOfferingRef'
+                productSpecification:
+                    $ref: '#/components/schemas/ProductSpecificationRef'
+                prospectContact:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ContactMedium'
+                relatedParty:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                salesOpportunity:
+                    $ref: '#/components/schemas/SalesOpportunityRef'
+                status:
+                    $ref: '#/components/schemas/SalesLeadStateType'
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: A Sales Lead is the identification of a person or organization
+                that has an interest in the goods and/or services provided in the prospect
+                of them becoming Customers with one or more Subscriptions.
+        SalesLead_Create:
+            required:
+                - name
+            type: object
+            properties:
+                description:
+                    type: string
+                    description: Unique description of the salesLead
+                name:
+                    type: string
+                    description: Name of the salesLead
+                rating:
+                    type: string
+                    description: "Identifies the potential of a salesLead for becoming a sale.\
+            \ Usual ratings for qualified leads are: hot, warm, cold."
+                referredDate:
+                    type: string
+                    description: "Date when the prospect information was received (for example,\
+            \ from a trade show)."
+                    format: date-time
+                statusChangeReason:
+                    type: string
+                    description: Reason why the status has changed
+                type:
+                    type: string
+                    description: Indicates the nature of the salesLead
+                category:
+                    $ref: '#/components/schemas/CategoryRef'
+                channel:
+                    $ref: '#/components/schemas/ChannelRef'
+                estimatedRevenue:
+                    $ref: '#/components/schemas/Money'
+                marketSegment:
+                    $ref: '#/components/schemas/MarketSegmentRef'
+                marketingCampaign:
+                    $ref: '#/components/schemas/MarketingCampaignRef'
+                note:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Note'
+                priority:
+                    $ref: '#/components/schemas/SalesLeadPriorityType'
+                product:
+                    $ref: '#/components/schemas/ProductRef'
+                productOffering:
+                    $ref: '#/components/schemas/ProductOfferingRef'
+                productSpecification:
+                    $ref: '#/components/schemas/ProductSpecificationRef'
+                prospectContact:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ContactMedium'
+                relatedParty:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                salesOpportunity:
+                    $ref: '#/components/schemas/SalesOpportunityRef'
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: |-
+                A Sales Lead is the identification of a person or organization that has an interest in the goods and/or services provided in the prospect of them becoming Customers with one or more Subscriptions.
+                Skipped properties: id,href,status,creationDate,statusChangeDate
+        SalesLead_Update:
+            type: object
+            properties:
+                description:
+                    type: string
+                    description: Unique description of the salesLead
+                name:
+                    type: string
+                    description: Name of the salesLead
+                rating:
+                    type: string
+                    description: "Identifies the potential of a salesLead for becoming a sale.\
+            \ Usual ratings for qualified leads are: hot, warm, cold."
+                referredDate:
+                    type: string
+                    description: "Date when the prospect information was received (for example,\
+            \ from a trade show)."
+                    format: date-time
+                statusChangeDate:
+                    type: string
+                    description: Date and time of the last update
+                    format: date-time
+                statusChangeReason:
+                    type: string
+                    description: Reason why the status has changed
+                type:
+                    type: string
+                    description: Indicates the nature of the salesLead
+                category:
+                    $ref: '#/components/schemas/CategoryRef'
+                channel:
+                    $ref: '#/components/schemas/ChannelRef'
+                estimatedRevenue:
+                    $ref: '#/components/schemas/Money'
+                marketSegment:
+                    $ref: '#/components/schemas/MarketSegmentRef'
+                marketingCampaign:
+                    $ref: '#/components/schemas/MarketingCampaignRef'
+                note:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Note'
+                priority:
+                    $ref: '#/components/schemas/SalesLeadPriorityType'
+                product:
+                    $ref: '#/components/schemas/ProductRef'
+                productOffering:
+                    $ref: '#/components/schemas/ProductOfferingRef'
+                productSpecification:
+                    $ref: '#/components/schemas/ProductSpecificationRef'
+                prospectContact:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ContactMedium'
+                relatedParty:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/RelatedParty'
+                salesOpportunity:
+                    $ref: '#/components/schemas/SalesOpportunityRef'
+                status:
+                    $ref: '#/components/schemas/SalesLeadStateType'
+                validFor:
+                    $ref: '#/components/schemas/TimePeriod'
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+            description: |-
+                A Sales Lead is the identification of a person or organization that has an interest in the goods and/or services provided in the prospect of them becoming Customers with one or more Subscriptions.
+                Skipped properties: id,href,creationDate
+        SalesLeadPriorityType:
+            type: string
+            description: Urgency of working this salesLead
+            enum:
+                - low
+                - medium
+                - high
+        SalesLeadStateType:
+            type: string
+            description: Valid values for the lifecycle state of a salesLead resource
+            enum:
+                - accepted
+                - acknowledged
+                - cancelled
+                - inProgress
+                - pending
+                - rejected
+        SalesOpportunityRef:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier of a related entity.
+                href:
+                    type: string
+                    description: Reference of the related entity.
+                name:
+                    type: string
+                    description: Name of the related entity.
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name"
+                '@referredType':
+                    type: string
+                    description: The actual type of the target instance when needed for disambiguation.
+            description: 'Sales Opportunity is an ''opportunity'' to generate revenue from
+        a Sales Account or Sales Lead. Opportunities are the pending deals that need
+        to be tracked and on which Sales Team plans and executes Sales Activities
+        (Events and Tasks). '
+        TargetProductSchema:
+            required:
+                - '@schemaLocation'
+                - '@type'
+            type: object
+            properties:
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class"
+                '@schemaLocation':
+                    type: string
+                    description: This field provides a link to the schema describing the target
+                        product
+                '@type':
+                    type: string
+                    description: Class type of the target product
+            description: The reference object to the schema and type of target product which
+                is described by product specification
+        TimePeriod:
+            type: object
+            properties:
+                endDateTime:
+                    type: string
+                    description: "End of the time period, using IETC-RFC-3339 format"
+                    format: date-time
+                startDateTime:
+                    type: string
+                    description: "Start of the time period, using IETC-RFC-3339 format. If you\
+            \ define a start, you must also define an end"
+                    format: date-time
+            description: "A period of time, either as a deadline (endDateTime only) a startDateTime\
+        \ only, or both"
+        EventSubscription:
+            required:
+                - callback
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Id of the listener
+                callback:
+                    type: string
+                    description: The callback being registered.
+                query:
+                    type: string
+                    description: additional data to be passed
+            description: Sets the communication endpoint address the service instance must
+                use to deliver notification information
+        EventSubscriptionInput:
+            required:
+                - callback
+            type: object
+            properties:
+                callback:
+                    type: string
+                    description: The callback being registered.
+                query:
+                    type: string
+                    description: additional data to be passed
+            description: Sets the communication endpoint address the service instance must
+                use to deliver notification information
+        SalesLeadCreateEvent:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Identifier of the Process flow
+                href:
+                    type: string
+                    description: Reference of the ProcessFlow
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+                event:
+                    $ref: '#/components/schemas/SalesLeadCreateEventPayload'
+            description: The notification data structure
+        SalesLeadCreateEventPayload:
+            type: object
+            properties:
+                salesLead:
+                    $ref: '#/components/schemas/SalesLead'
+            description: The event data structure
+        SalesLeadAttributeValueChangeEvent:
+            type: object
+            properties:
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+                fieldPath:
+                    type: string
+                    description: The path identifying the object field concerned by this notification.
+                event:
+                    $ref: '#/components/schemas/SalesLeadAttributeValueChangeEventPayload'
+            description: The notification data structure
+        SalesLeadAttributeValueChangeEventPayload:
+            type: object
+            properties:
+                salesLead:
+                    $ref: '#/components/schemas/SalesLead'
+            description: The event data structure
+        SalesLeadStateChangeEvent:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Identifier of the Process flow
+                href:
+                    type: string
+                    description: Reference of the ProcessFlow
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+                event:
+                    $ref: '#/components/schemas/SalesLeadStateChangeEventPayload'
+            description: The notification data structure
+        SalesLeadStateChangeEventPayload:
+            type: object
+            properties:
+                salesLead:
+                    $ref: '#/components/schemas/SalesLead'
+            description: The event data structure
+        SalesLeadDeleteEvent:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: Identifier of the Process flow
+                href:
+                    type: string
+                    description: Reference of the ProcessFlow
+                eventId:
+                    type: string
+                    description: The identifier of the notification.
+                eventTime:
+                    type: string
+                    description: Time of the event occurrence.
+                    format: date-time
+                eventType:
+                    type: string
+                    description: The type of the notification.
+                correlationId:
+                    type: string
+                    description: The correlation id for this event.
+                domain:
+                    type: string
+                    description: The domain of the event.
+                title:
+                    type: string
+                    description: The title of the event.
+                description:
+                    type: string
+                    description: An explnatory of the event.
+                priority:
+                    type: string
+                    description: A priority.
+                timeOcurred:
+                    type: string
+                    description: The time the event occured.
+                    format: date-time
+                event:
+                    $ref: '#/components/schemas/SalesLeadDeleteEventPayload'
+            description: The notification data structure
+        SalesLeadDeleteEventPayload:
+            type: object
+            properties:
+                salesLead:
+                    $ref: '#/components/schemas/SalesLead'
+            description: The event data structure
+        Error:
+            required:
+                - code
+                - reason
+            type: object
+            properties:
+                code:
+                    type: string
+                    description: "Application relevant detail, defined in the API or a common\
+            \ list."
+                reason:
+                    type: string
+                    description: Explanation of the reason for the error which can be shown
+                        to a client user.
+                message:
+                    type: string
+                    description: More details and corrective actions related to the error which
+                        can be shown to a client user.
+                status:
+                    type: string
+                    description: HTTP Error code extension
+                referenceError:
+                    type: string
+                    description: URI of documentation describing the error.
+                    format: uri
+                '@baseType':
+                    type: string
+                    description: "When sub-classing, this defines the super-class."
+                '@schemaLocation':
+                    type: string
+                    description: A URI to a JSON-Schema file that defines additional attributes
+                        and relationships
+                    format: uri
+                '@type':
+                    type: string
+                    description: "When sub-classing, this defines the sub-class entity name."
+            description: "Used when an API throws an Error, typically with a HTTP error\
+        \ response-code (3xx, 4xx, 5xx)"
+x-original-swagger-version: "2.0"
