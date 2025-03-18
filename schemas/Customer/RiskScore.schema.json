@@ -14,7 +14,7 @@
                     "description": "The risk score"
                 },
                 "riskName": {
-                    "$ref": "RiskType.schema.json#RiskType",
+                    "$ref": "../Customer/RiskType.schema.json#RiskType",
                     "description": "The name of the risk"
                 }
             },

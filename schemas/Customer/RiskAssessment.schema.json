@@ -24,7 +24,7 @@
                     "description": "The status of the risk assessment, such as Succeeded, In Progress, Failed, output from the task"
                 },
                 "riskAssessmentResult": {
-                    "$ref": "RiskAssessmentResult.schema.json#RiskAssessmentResult",
+                    "$ref": "../Customer/RiskAssessmentResult.schema.json#RiskAssessmentResult",
                     "description": "The result of the risk assessment, output from the task"
                 }
             },

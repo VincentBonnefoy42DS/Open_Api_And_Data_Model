@@ -18,7 +18,7 @@
                 "productSpecCharRelationship": {
                     "type": "array",
                     "items": {
-                        "$ref": "ProductSpecificationCharacteristicRelationship.schema.json#ProductSpecificationCharacteristicRelationship"
+                        "$ref": "../Product/ProductSpecificationCharacteristicRelationship.schema.json#ProductSpecificationCharacteristicRelationship"
                     },
                     "description": "An aggregation, migration, substitution, dependency or exclusivity relationship between/among Specification Characteristics."
                 }

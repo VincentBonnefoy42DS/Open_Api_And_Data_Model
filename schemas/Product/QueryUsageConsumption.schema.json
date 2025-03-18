@@ -10,13 +10,13 @@
 			"properties": {
                 "searchCriteria": {
                     "description": "Search structure to retrieve current value of usage",
-                    "$ref": "UsageConsumption.schema.json#UsageConsumption"
+                    "$ref": "../Product/UsageConsumption.schema.json#UsageConsumption"
                 },
                 "usageConsumption": {
                     "type": "array",
                     "description": "Report with current counters and balances",
                     "items": {
-                        "$ref": "UsageConsumption.schema.json#UsageConsumption"
+                        "$ref": "../Product/UsageConsumption.schema.json#UsageConsumption"
                     }
                 },
                 "queryUsageConsumptionDate": {

@@ -63,7 +63,7 @@
                     "description": "Amount to be paid (including taxes)"
                 },
                 "channel": {
-                    "$ref": "../Customer/ChannelRef.schema.json#ChannelRef"
+                    "$ref": "../Common/ChannelRef.schema.json#ChannelRef"
                 },
                 "paymentItem": {
                     "type": "array",

@@ -13,10 +13,10 @@
           "description": "Unique identifier of the AdjustProductStockItem"
         },
         "adjustProductStockQuantity": {
-            "$ref": "Quantity.schema.json#/definitions/Quantity"
+            "$ref": "../Common/Quantity.schema.json#Quantity"
         },
         "state": {
-            "$ref": "TaskStateType.schema.json#/definitions/TaskStateType",
+            "$ref": "../Common/TaskStateType.schema.json#TaskStateType",
             "description": "State of the AdjustProductStockItem (acknowledged, inProgress, terminatedWithError, done)"
         },
         "productStockTarget": {

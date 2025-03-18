@@ -28,7 +28,7 @@
                 },
                 "receiverBucket": {
                     "description": "A reference to the bucket to which the balance will be transferred",
-                    "$ref": "BucketRef.schema.json#BucketRef"
+                    "$ref": "../Customer/BucketRef.schema.json#BucketRef"
                 },
                 "receiverLogicalResource": {
                     "$ref": "../Resource/LogicalResourceRef.schema.json#LogicalResourceRef",
@@ -45,7 +45,7 @@
 	    },
             "allOf": [
                 {
-                    "$ref": "BalanceAction.schema.json#BalanceAction"
+                    "$ref": "../Customer/BalanceAction.schema.json#BalanceAction"
                 }
 	    ] 
         }

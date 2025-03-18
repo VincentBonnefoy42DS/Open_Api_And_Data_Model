@@ -15,7 +15,7 @@
     	    },
             "allOf": [
                 {
-                    "$ref": "BalanceAction.schema.json#BalanceAction"
+                    "$ref": "../Customer/BalanceAction.schema.json#BalanceAction"
                 }
             ]
     	}

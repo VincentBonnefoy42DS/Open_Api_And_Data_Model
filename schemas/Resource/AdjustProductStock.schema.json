@@ -17,7 +17,7 @@
                     "type": "string"
                 },
                 "state": {
-                    "$ref": "TaskStateType.schema.json#/definitions/TaskStateType",
+                    "$ref": "../Common/TaskStateType.schema.json#TaskStateType",
                     "description": "State of the AdjustProductStock (acknowledged, inProgress, terminatedWithError, done)"
                 },
                 "instantSyncAdjust": {
@@ -59,7 +59,7 @@
             },
             "allOf": [
                 {
-                    "$ref": "Entity.schema.json#/Entity"
+                    "$ref": "../Common/Entity.schema.json#Entity"
                 }
             ]
         }

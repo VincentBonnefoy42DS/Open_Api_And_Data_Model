@@ -36,13 +36,13 @@
                 },
                  "bucket": {
                     "description": "A reference to the bucket impacted by the request or the value itself.",
-                    "$ref": "BucketRef.schema.json#BucketRef"
+                    "$ref": "../Customer/BucketRef.schema.json#BucketRef"
                 }, 
                  "item": {
 	            "type": "array",
 		    "items":{
                       "description": "A reference to an array of ImpactedBucketItem that capture the details of the changes to the ImpactedBucket.",
-                      "$ref": "ImpactedBucketItem.schema.json#ImpactedBucketItem"
+                      "$ref": "../Customer/ImpactedBucketItem.schema.json#ImpactedBucketItem"
 		    },
 		    "minItems": 1
                 }	

@@ -18,7 +18,7 @@
                 "bucket": {
                     "type": "array",
                     "items": {
-                        "$ref": "BucketRef.schema.json#BucketRef"
+                        "$ref": "../Customer/BucketRef.schema.json#BucketRef"
                     },
                     "description": "A reference to the buckets involved in the aggregation"
                 },
@@ -57,7 +57,7 @@
                 },
                 "totalBalance": {
                     "description": "Aggregated for a set of prepay balance buckets associated to the product",
-                    "$ref": "../Common/Quantity.schema.json#/Quantity"
+                    "$ref": "../Common/Quantity.schema.json#Quantity"
                 }
             },
 	    "allOf" :[

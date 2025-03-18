@@ -8,7 +8,7 @@
             "description": "Represents a detailed description of a recharge operation requested over a bucket (defined by a specific product or reference to a product (i.e.: a commercial id such as an msisidn) and a service type)",
             "properties": {
 		"relatedTopupBalance": {
-                    "$ref": "RelatedTopupBalance.schema.json#RelatedTopupBalance"
+                    "$ref": "../Customer/RelatedTopupBalance.schema.json#RelatedTopupBalance"
 		},
                 "isAutoTopup": {
                     "type": "boolean",
@@ -36,7 +36,7 @@
             },
             "allOf": [
                 {
-                    "$ref": "BalanceAction.schema.json#BalanceAction"
+                    "$ref": "../Customer/BalanceAction.schema.json#BalanceAction"
                 }
             ]
         }

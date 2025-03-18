@@ -40,12 +40,12 @@
 	            "type": "array",
                     "description": "A reference to the bucket impacted by the request or the value itself.",
                     "items": { 
-        		       "$ref": "ImpactedBucket.schema.json#ImpactedBucket"
+        		       "$ref": "../Customer/ImpactedBucket.schema.json#ImpactedBucket"
 		    }
                 }, 
                  "bucket": {
                     "description": "A reference to the bucket impacted by the request or the value itself.",
-                    "$ref": "BucketRef.schema.json#BucketRef"
+                    "$ref": "../Customer/BucketRef.schema.json#BucketRef"
                 }, 
                 "requestor": {
                     "description": "Identifier for the user/customer/entity that performs the top-up action. This can be used to indicate the identifier of an agent that performs the operation on behalf of a user via a customer service channel. Structure including at least attributes role and name.",

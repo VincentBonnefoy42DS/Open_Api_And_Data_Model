@@ -52,7 +52,7 @@
 					"type": "array",
 					"items": {
 						"description": "a reference to the Product(s) associated to the request",
-						"$ref": "UsageConsumptionProductRef.schema.json#UsageConsumptionProductRef"
+						"$ref": "../Product/UsageConsumptionProductRef.schema.json#UsageConsumptionProductRef"
 					}
 				},
 				"service": {

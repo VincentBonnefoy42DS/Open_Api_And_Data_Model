@@ -73,13 +73,13 @@
                 "interactionItem": {
                     "type": "array", 
                     "items": {
-                        "$ref": "InteractionItem.schema.json#InteractionItem"
+                        "$ref": "../EngagedParty/InteractionItem.schema.json#InteractionItem"
                     }
                 }, 
                 "interactionRelationship": {
                     "type": "array", 
                     "items": {
-                        "$ref": "InteractionRelationship.schema.json#InteractionRelationship"
+                        "$ref": "../EngagedParty/InteractionRelationship.schema.json#InteractionRelationship"
                     }
                 }
             },

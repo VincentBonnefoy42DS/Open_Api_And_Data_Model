@@ -19,7 +19,7 @@
                 },
                 "alternateQuantity": {
                     "description": "Alternate quantity available",
-                    "$ref": "Quantity.schema.json#/definitions/Quantity"
+                    "$ref": "../Common/Quantity.schema.json#Quantity"
                 },
                 "alternatePlace": {
                     "description": "Alternate place where product stock is available",
@@ -27,16 +27,16 @@
                 },
                 "alternateStock": {
                     "description": "Alternate product stock available",
-                    "$ref": "ProductStockRef.schema.json#/definitions/ProductStockRef"
+                    "$ref": "../Resource/ProductStockRef.schema.json#ProductStockRef"
                 },
                 "alternateProduct": {
-                    "$ref": "../Product/ProductRefOrValue.schema.json#/definitions/ProductRefOrValue",
+                    "$ref": "../Product/ProductRefOrValue.schema.json#ProductRefOrValue",
                     "description" : "Alternat product available"
                 }
             },
             "allOf": [
                 {
-                    "$ref": "Extensible.schema.json#/Extensible"
+                    "$ref": "../Common/Extensible.schema.json#Extensible"
                 }
             ]
         }

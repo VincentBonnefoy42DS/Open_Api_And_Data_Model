@@ -17,7 +17,7 @@
                 "score": {
                     "type": "array",
                     "items": {
-                        "$ref": "RiskScore.schema.json#RiskScore"
+                        "$ref": "../Customer/RiskScore.schema.json#RiskScore"
                     },                        
                     "description": "Additional characteristics for which the risk might be assessed, optional input to the task"
                 },
